@@ -11,16 +11,16 @@ mongoose.connect(uri, {
   .then(() => console.log('Connected to Mongo DB.'))
   .catch(err => console.log(err));
 
-
-const UserSchema = new Schema({
-  argo_token: {type: String, default: ''},
-  App: {type: Array, default: [AppSchema]}
-})
-
 const AppSchema = new Schema({
   name: {type: String, default: ''},
   head: {type: String, default: null},
   tail: {type: String, default: null}
+})
+
+const UserSchema = new Schema({
+  gubhibId: {type: String, required: true},
+  argo_token: {type: String, default: ''},
+  App: {type: Array, default: [AppSchema]}
 })
 
 const NodeSchema = new Schema({
