@@ -17,13 +17,13 @@ function App() {
       })
       .catch((err) => console.log(err));
   }
-    return (
-      <div>
-        <h1>Is the server running?</h1>
-        <button onClick={(e) => handleClick(e)}>CLICK ME</button>
-        <Login />
-      </div>
-    )
+  return (
+    <div>
+      <h1>Vite is the best</h1>
+      <button onClick={(e)=>handleClick(e)}>CLICK ME</button>
+      <a href='http://localhost:3000/auth/github'>Login Using GitHub</a>
+   </div>
+  )
 }
 
 export default App
