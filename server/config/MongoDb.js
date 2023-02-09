@@ -21,13 +21,15 @@ const AppSchema = new Schema({
   tail: {type: String, default: null}
 })
 
+const UserSchema = new Schema({
+  gubhibId: {type: String, required: true},
+  argo_token: {type: String, default: ''},
+})
+
 const NodeSchema = new Schema({
   manifest: {type: String}, //stringify
   prev: {type: String, default: null},
   next: {type: String, default: null}
-})
-const UserSchema = new Schema({
-  argo_token: {type: String, default: ''}
 })
 
 const User = new mongoose.model("User", UserSchema)
