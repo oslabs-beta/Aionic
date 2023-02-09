@@ -8,7 +8,7 @@ import Login from './components/Login';
 
 function App() {
   // const  [login, setLogin]  = useState(false);
-  const handleClick = (e : any) => {
+  const handleClick = (e : React.ChangeEvent<HTMLButtonElement>): void => {
     e.preventDefault();
     fetch('http://localhost:3000/test')
       .then((data) => data.json())
@@ -24,13 +24,6 @@ function App() {
         <Login />
       </div>
     )
-  // else {
-  //   return (
-  //     <div>
-  //       {<Home/>}
-  //     </div>
-  //   )
-  // }
 }
 
 export default App

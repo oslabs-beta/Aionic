@@ -19,7 +19,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/home/manifests',
-    element: <ManifestHub />,
+    element: <ManifestHub />
   }
 ])
 
