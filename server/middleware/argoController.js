@@ -3,13 +3,13 @@ const axios = require('axios');
 const argoController = {};
 
 argoController.setToken = (req, res, next) => {
-  axios.get('http://localhost:8080/api/v1/applications/example-app/manifests', {
+  axios.get('https://localhost:8080/api/v1/applications/guestbook/manifests', {
     headers: {
-      Cookie: 'argocd.token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhcmdvY2QiLCJzdWIiOiJhcmk6YXBpS2V5IiwibmJmIjoxNjc1NzI3NzM4LCJpYXQiOjE2NzU3Mjc3MzgsImp0aSI6ImM4OTczMjY3LTYwOWUtNGRjYy05NTNjLTdiZWNkOTBjMDYwMyJ9.dfQuOxHVXqSMK4I_7mSKeZewnNhp-PElv-1V1XC0qc0'
+      Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhcmdvY2QiLCJzdWIiOiJqYXNvbjphcGlLZXkiLCJuYmYiOjE2NzU3OTU2NzYsImlhdCI6MTY3NTc5NTY3NiwianRpIjoiZDg1M2QwYzgtNDI1MC00NGRlLTlhOTQtYjI1NjZmY2UxOGI5In0.ZH83uroRxmuckUA1oX5vjeubYm9JN-TEli_qKcBxJc0`,
     }
   })
     .then((data) => {
-      console.log(data.data);
+      console.log(data.data.items);
       res.locals.manifest = data.data;
       return next();
     })
