@@ -37,7 +37,7 @@ app.get('/auth/github/callback',
   });
 
 //sends user to github for authorization and guthub will send back a code for us to grab the github access token
-app.get('/auth/github', (req,res,next) =>{console.log('ran'); return next()},
+app.get('/auth/github',
   passport.authenticate('github', { scope: ['user:email'] }));
 
 //logout session that destroy cookie and log user out from github

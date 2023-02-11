@@ -22,22 +22,31 @@ const AppSchema = new Schema({
 })
 
 const UserSchema = new Schema({
-  gubhibId: {type: String, required: true},
-  argo_token: {type: String, default: ''},
+  gubhibId: {type: String, required: true, unique: true},
+  githubToken: {type: String, default: ''}
+  // argo_token: {type: String, default: ''},
+  // app_ids: {type: Array, default: [{app_id: {type: String}}]}
 })
 
 const NodeSchema = new Schema({
-  manifest: {type: String}, //stringify
+  manifest: {type: String, required: true}, //stringify
+  revision: {type: String, required: true},
   prev: {type: String, default: null},
   next: {type: String, default: null}
 })
+const ApiKeySchema = new Schema({
+  api_key: {type: String, required: true},
+  url: {type: String, required: true}
+})
 
+const ApiKey = new mongoose.model("ApiKey",ApiKeySchema)
 const User = new mongoose.model("User", UserSchema)
 const App = new mongoose.model("App", AppSchema)
 const Node = new mongoose.model("Node", NodeSchema)
 
 
 module.exports ={
+  ApiKey,
   User,
   App,
   Node
