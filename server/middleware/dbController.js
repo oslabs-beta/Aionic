@@ -66,38 +66,29 @@ module.exports = {
   // pass in the uid of the cluster you want to look at as res.locals.uid 
   // res.locals =
   // {
-  //   uid: String,
-  //   manifest: (fetched from api and stringified)
+  //   uid: String, fetched from db or api this is application's uid
+  //   manifest: (fetched from api and stringify it plz)
+  //   revision: {fetched from api}
   // }
   addNode: async (req,res,next) => {
     // create and save the node to the app
     try {
-      const {uid, manifest} = res.locals
+      const {uid, manifest,revision} = res.locals
       const app = await App.findOne({uid: uid})
-      const node = await Node.create({manifest: manifest})
+      const node = await Node.create({manifest: manifest, revision})
       if (app.head === null) {
         app.head = node._id
         app.tail = node._id
-      }
-      else if (app.head === app.tail) {
-        console.log('ran')
-        const prevNode = await Node.findOne({_id: app.head})
-        prevNode.next = node._id
-        node.prev = app.head
-        app.tail = node._id
-        console.log(prevNode, node)
-        prevNode.save()
-        node.save();
       }else {
-        const prevNode = await Node.findOne({_id: app.tail})
-        prevNode.next = node._id
-        node.prev = app.tail
-        app.tail = node._id
-        prevNode.save()
-        node.save()
+        const prevNode = await Node.findOne({_id: app.tail});
+        prevNode.next = node._id;
+        node.prev = app.tail;
+        app.tail = node._id;
+        prevNode.save();
+        node.save();
       }
       app.save()
-      console.log(app)
+      if (req === undefined) return node
       return next()
     }catch(err) {
       const error = {
@@ -109,7 +100,7 @@ module.exports = {
       return next(error)
     }
   },
-  // pass in node as req.params._id
+  // pass in node as req.locals
   // {
   //   uid:
   // }
@@ -118,7 +109,7 @@ module.exports = {
       const {uid} = res.locals
       const app = await App.findOne({uid: uid})
       const lastNode = await Node.findOne({_id: app.tail})
-      res.locals.response = lastNode
+      res.locals.response = await lastNode
       return next()
     }catch(err) {
       const error = {
