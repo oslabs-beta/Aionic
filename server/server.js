@@ -30,10 +30,10 @@ app.use(passport.session());
 
 //github will return an access token and passport will do its magic in grabbing the data and storing the user in the database
 //check passport.js for more info
-app.get('/auth/github/callback', 
+app.get('/auth/github/callback',
   passport.authenticate('github', { failureRedirect: '/' }),
   (req, res) => {
-    res.redirect('/');
+    return res.redirect('http://localhost:5173/');
   });
 
 //sends user to github for authorization and guthub will send back a code for us to grab the github access token
@@ -44,16 +44,28 @@ app.get('/auth/github',
 app.get('/logout', (req, res) => {
   req.session = null;
   req.logout();
-  res.redirect('/');
+  return res.redirect('/');
 })
 
 app.get('/', authController.isLoggedIn, (req, res) => {
-  res.json('success');
+  return res.json('success');
 })
 
 app.get('/test', argoController.setToken, (req, res) => {
   console.log(JSON.parse(res.locals.manifest.manifests[1]))
-  res.json(res.locals.manifest);
+  return res.json(res.locals.manifest);
+})
+
+app.use('/db', dbRouter)
+
+app.use((err,req,res,next) => {
+  const error = {
+    message: 'you will never know what is wrong with me **hint** server related ',
+    status: 404,
+    log: 'if you see this text you did not setup error handling -.-;;'
+  }
+  err = Object.assign(error, err)
+  return res.status(err.status).send(err)
 })
 
 app.use('/db', dbRouter)

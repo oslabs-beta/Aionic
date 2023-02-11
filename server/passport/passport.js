@@ -1,6 +1,6 @@
 const passport = require('passport');
 const keys = require('../keys.js')
-const User = require('../config/MongoDb.js');
+const { User } = require('../config/MongoDb.js');
 const GitHubStrategy = require('passport-github2').Strategy;
 
 //Each subsequent request will not contain credentials, but rather the unique cookie that identifies the session. 
@@ -18,17 +18,19 @@ passport.use(new GitHubStrategy({
   callbackURL: 'http://localhost:3000/auth/github/callback'
 },
   (accessToken, refreshToken, profile, done) => {
-    User.findOne({ githubId: profile.displayName }, (err, user) => {
+    User.findOne({ githubId: profile.username }, (err, user) => {
       //check for errors finding user
       if (err) { 
         return done(err); 
       }
       //no user found, so we save new user to db
       if (!user) {
+        console.log('here')
         const newUser = {
-          githubId: profile.displayName,
+          githubId: profile.username,
         }
-        User.create({githubId: profile.displayName}, (err, user) => {
+        console.log(newUser)
+        User.create(newUser, (err, user) => {
           if (err) {
             return done(err, user);
           }
