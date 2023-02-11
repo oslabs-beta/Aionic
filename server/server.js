@@ -4,7 +4,6 @@ const cookieSession = require('cookie-session');
 const express = require('express');
 const cors = require('cors');
 const passport = require('passport');
-const dbRouter = require('./routes/dbrouter')
 const app = express();
 
 //importing middleware and keys
@@ -12,6 +11,10 @@ const argoController = require('./middleware/argoController');
 const authController = require('./middleware/authController');
 require('./passport/passport.js');
 const keys = require('./keys.js');
+
+//importing routers
+const dbRouter = require('./routes/dbrouter');
+const apiRouter = require('./routes/apirouter');
 
 //json parsing, cors, and cookie parser
 app.use(express.json());
@@ -56,8 +59,18 @@ app.get('/test', argoController.setToken, (req, res) => {
   return res.json(res.locals.manifest);
 })
 
+//routers
 app.use('/db', dbRouter)
+app.use('/api', apiRouter)
 
+//unknown router handler
+app.use('*', (req, res) => {
+  return res.status(404).json({
+    message: 'unknown route'
+  })
+})
+
+//global error handler
 app.use((err,req,res,next) => {
   const error = {
     message: 'you will never know what is wrong with me **hint** server related ',
