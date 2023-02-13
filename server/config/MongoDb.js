@@ -20,7 +20,8 @@ const AppSchema = new Schema({
 
 const UserSchema = new Schema({
   githubId: {type: String, required: true, unique: true},
-  githubToken: {type: String, default: ''}
+  githubToken: {type: String, default: ''},
+  user_api_key: (type: String, default: null)
 })
 
 const NodeSchema = new Schema({
