@@ -11,9 +11,6 @@ mongoose.connect(uri, {
   .then(() => console.log('Connected to Mongo DB.'))
   .catch(err => console.log(err));
 
-
-
-
 const AppSchema = new Schema({
   name: {type: String, required: true},
   uid: {type: String, required: true, unique: true},
@@ -22,10 +19,8 @@ const AppSchema = new Schema({
 })
 
 const UserSchema = new Schema({
-  github: {type: String, required: true, unique: true},
+  githubId: {type: String, required: true, unique: true},
   githubToken: {type: String, default: ''}
-  // argo_token: {type: String, default: ''},
-  // app_ids: {type: Array, default: [{app_id: {type: String}}]}
 })
 
 const NodeSchema = new Schema({
@@ -34,6 +29,7 @@ const NodeSchema = new Schema({
   prev: {type: String, default: null},
   next: {type: String, default: null}
 })
+
 const ApiKeySchema = new Schema({
   api_key: {type: String, required: true},
   url: {type: String, required: true}

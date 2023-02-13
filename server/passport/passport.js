@@ -18,26 +18,25 @@ passport.use(new GitHubStrategy({
   callbackURL: 'http://localhost:3000/auth/github/callback'
 },
   (accessToken, refreshToken, profile, done) => {
-    User.findOne({ githubId: profile.username }, (err, user) => {
+    const githubId = profile.username;
+    User.findOne({ githubId }, (err, user) => {
       //check for errors finding user
       if (err) { 
         return done(err); 
       }
       //no user found, so we save new user to db
       if (!user) {
-        console.log('here')
-        const newUser = {
-          githubId: profile.username,
-        }
-        console.log(newUser)
-        User.create(newUser, (err, user) => {
+        User.create({ githubId }, (err, user) => {
           if (err) {
             return done(err, user);
+          }
+          else {
+            return done(null, user);
           }
         })
       }
       else {
-        return done(err, user);
+        return done(null, user);
       }
     })
   }
