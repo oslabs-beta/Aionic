@@ -52,6 +52,7 @@ argoController.getManifests = async (req, res, next) => {
 //checks if argo token is in database
 argoController.checkToken = async (req, res, next) => {
   try {
+    console.log(req.user)
     let data = await ApiKey.find({});
     console.log(data);
     if (data.length < 1) {

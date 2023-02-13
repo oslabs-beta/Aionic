@@ -43,15 +43,13 @@ module.exports = {
   },
   // list of uid needs to be passed into the function as res.locals.uids 
   // format of the data
-  // [
-  //   {
-  //     uid: String
-  //   }
-  // ]
+
+  //     res.locals.uids =[ String...]
+
    getApps: async (req,res,next) => {
     try{
       console.log('here')
-      const response = await App.find(res.locals.uids)
+      const response = await App.find().where('uid').in(res.locals.uids).exec()
       res.locals.response = await response
       return next()
     }catch(err) {
