@@ -1,5 +1,8 @@
+import { MouseEvent } from "react";
+
 function App() {
-  const handleClick = (e) => {
+  
+  const handleClick = (e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent >) => {
     e.preventDefault();
     fetch('http://localhost:3000/test')
       .then((data) => data.json())
