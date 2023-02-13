@@ -8,7 +8,7 @@ function App() {
 
   useEffect(() => {
     //fetch the api
-    fetch('http://localhost:3000/api/checkuser')
+    fetch('http://localhost:3000/api/checkUser')
       .then((data: Response) => data.json())
       .then((data: string) => {
         //if auth succeeds, we get the username back. need to make sure we get false if it fails
@@ -17,13 +17,20 @@ function App() {
           //forward to home
         }
       });
+    
   });
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    fetch('http://localhost:3000/logout')
+      .then((data) => data.json)
+      .then((data) => console.log(data));
+  }
 
   return (
     <div>
-      <h1>Vite is the best</h1>
-      <button onClick={(e) => handleClick(e)}>CLICK ME</button>
       <a href='http://localhost:3000/auth/github'>Login Using GitHub</a>
+      <button onClick={(e)=>handleClick(e)}>Logout</button>
       {isLoggedIn ? <Home /> : <Login />}
     </div>
   );

@@ -7,6 +7,7 @@ const checkAppsUpdate = require('../middleware/updateAppList');
 
 //endpoint for checking if user is authenticated
 router.get('/checkUser', authController.isLoggedIn, (req, res) => {
+  console.log('user is being checked');
   return res.json(req.user);
 })
 

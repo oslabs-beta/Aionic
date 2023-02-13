@@ -45,6 +45,7 @@ app.get('/auth/github',
 
 //logout session that destroy cookie and log user out from github
 app.get('/logout', (req, res) => {
+  console.log('get logged out punlk')
   req.session = null;
   req.logout();
   return res.redirect('/');
