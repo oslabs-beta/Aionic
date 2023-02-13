@@ -22,7 +22,7 @@ const AppSchema = new Schema({
 })
 
 const UserSchema = new Schema({
-  gubhibId: {type: String, required: true, unique: true},
+  github: {type: String, required: true, unique: true},
   githubToken: {type: String, default: ''}
   // argo_token: {type: String, default: ''},
   // app_ids: {type: Array, default: [{app_id: {type: String}}]}
