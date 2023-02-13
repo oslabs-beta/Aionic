@@ -18,13 +18,20 @@ function App() {
           setUsername(data.user);
         }
       });
+    
   });
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    fetch('http://localhost:3000/logout')
+      .then((data) => data.json)
+      .then((data) => console.log(data));
+  }
 
   return (
     <div>
-      <h1>Vite is the best</h1>
-      <button onClick={(e) => handleClick(e)}>CLICK ME</button>
       <a href='http://localhost:3000/auth/github'>Login Using GitHub</a>
+      <button onClick={(e)=>handleClick(e)}>Logout</button>
       {isLoggedIn ? <Home /> : <Login />}
     </div>
   );
