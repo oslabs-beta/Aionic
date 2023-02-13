@@ -5,16 +5,17 @@ import Login from './components/Login';
 function App() {
   //isLoggedIn changes after successful GitHub auth
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [username, setUsername] = useState('');
 
   useEffect(() => {
     //fetch the api
-    fetch('http://localhost:3000/api/checkuser')
+    fetch('http://localhost:3000/api/checkUser')
       .then((data: Response) => data.json())
-      .then((data: string) => {
+      .then((data) => {
         //if auth succeeds, we get the username back. need to make sure we get false if it fails
         if (data != 'failed') {
           setIsLoggedIn(true);
-          //forward to home
+          setUsername(data.user);
         }
       });
   });
