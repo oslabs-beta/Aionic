@@ -1,5 +1,5 @@
 const {User, App, Node} = require('../config/MongoDb.js')
-const {addNode} = require('../config/MongoDb.js')
+const {addNode} = require('../middleware/dbController.js')
 const axios = require('axios')
 function checkManifestUpdate(app, url, api_key) {
   this.apikey = api_key
@@ -16,6 +16,7 @@ checkManifestUpdate.prototype.update = function() {
     this.checkingManifest = true
     this.intervalId = setInterval(async ()=>{
       try{
+        console.log('Checking Manifest Update')
         if (this.revision === undefined) {
           const LastNode = await Node.findOne({_id: this.app.tail})
            this.revision = await LastNode.revision
@@ -25,9 +26,9 @@ checkManifestUpdate.prototype.update = function() {
           headers: {
             Authorization: `Bearer ${this.apikey}`
           }})
-          const {manifests, revision} = response
+          const {manifests, revision} = response.data
         if (revision !== this.revision) {
-          const newNode = addNode(undefined, {locals:{uid: this.app.uid, manifests: manifests, revision: revision}})
+          const newNode = addNode(undefined, {locals:{uid: this.app.uid, manifest: JSON.stringify(manifests), revision: revision}})
           return newNode
         }
 
@@ -37,7 +38,6 @@ checkManifestUpdate.prototype.update = function() {
     },this.time)
     return this.intervalId
   }
-  
 } 
 
 module.exports = checkManifestUpdate

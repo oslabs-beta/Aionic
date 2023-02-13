@@ -54,11 +54,6 @@ app.get('/', authController.isLoggedIn, (req, res) => {
   return res.json('success');
 })
 
-app.get('/test', argoController.setToken, (req, res) => {
-  console.log(JSON.parse(res.locals.manifest.manifests[1]))
-  return res.json(res.locals.manifest);
-})
-
 //routers
 app.use('/db', dbRouter)
 app.use('/api', apiRouter)
@@ -81,17 +76,7 @@ app.use((err,req,res,next) => {
   return res.status(err.status).send(err)
 })
 
-app.use('/db', dbRouter)
-
-app.use((err,req,res,next) => {
-  const error = {
-    message: 'you will never know what is wrong with me **hint** server related ',
-    status: 404,
-    log: 'if you see this text you did not setup error handling -.-;;'
-  }
-  err = Object.assign(error, err)
-  return res.status(err.status).send(err)
-})
+//start listening to server
 app.listen(3000, () => {
   console.log('Listening on 3000')
 })

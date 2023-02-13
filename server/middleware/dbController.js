@@ -1,5 +1,5 @@
 
-const {App, Node} = require('../config/MongoDb')
+const {App, Node, ApiKey} = require('../config/MongoDb')
 
 
 
@@ -50,6 +50,7 @@ module.exports = {
   // ]
    getApps: async (req,res,next) => {
     try{
+      console.log('here')
       const response = await App.find(res.locals.uids)
       res.locals.response = await response
       return next()
@@ -76,6 +77,7 @@ module.exports = {
       const {uid, manifest,revision} = res.locals
       const app = await App.findOne({uid: uid})
       const node = await Node.create({manifest: manifest, revision})
+      console.log(node)
       if (app.head === null) {
         app.head = node._id
         app.tail = node._id
@@ -104,7 +106,7 @@ module.exports = {
   // {
   //   uid:
   // }
-  async findLastNode(req,res, next) {
+  async findLastNode(req, res, next) {
     try{
       const {uid} = res.locals
       const app = await App.findOne({uid: uid})
@@ -125,7 +127,7 @@ module.exports = {
   // {
   //   _id: Node.prev or next
   // }
-  async findNode(req,res,next) {
+  async findNode(req, res, next) {
     try{
       const {_id} = res.locals
       const node = await Node.findOne({_id: _id})
@@ -139,6 +141,26 @@ module.exports = {
       }
       console.error(err)
       console.error(error)
+      return next(error)
+    }
+  },
+  // pass in as res.locals
+  // {
+  //   api_key: ,
+  //   uid: ,
+  // }
+  async addKey(req, res, next) {
+    try {
+      const { api_key, url } = req.body
+      let data = await ApiKey.create({ api_key, url })
+      return next();
+    }
+    catch(err) {
+      const error = {
+        message: `server/middleware/dbController.js dbController.addKey ${typeof err === 'object'? JSON.stringify(err) : err }`,
+        status:500,
+        log:'data base error'
+      }
       return next(error)
     }
   }
