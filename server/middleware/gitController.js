@@ -1,5 +1,5 @@
 const { User } = require('../config/MongoDb')
-const gitContoller = {};
+const gitController = {};
 
 gitController.checkToken = async (req, res, next) => {
     const { user } = req;
@@ -14,4 +14,4 @@ gitController.checkToken = async (req, res, next) => {
     }
 }
 
-module.exports = gitContoller;
+module.exports = gitController;
