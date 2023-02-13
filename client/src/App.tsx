@@ -28,13 +28,16 @@ function App() {
       .then((data) => console.log(data));
   }
 
-  return (
-    <div>
-      <a href='http://localhost:3000/auth/github'>Login Using GitHub</a>
-      <button onClick={(e)=>handleClick(e)}>Logout</button>
-      {isLoggedIn ? <Home /> : <Login />}
-    </div>
-  );
+  if (!isLoggedIn) {
+    return (
+      <div>
+        <a href='http://localhost:3000/auth/github'>Login Using GitHub</a>
+        <button onClick={(e) => handleClick(e)}>Logout</button>
+      </div>
+    );
+  } else {
+  return <Home />
+  }
 }
 
 export default App;
