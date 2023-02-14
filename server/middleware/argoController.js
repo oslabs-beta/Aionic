@@ -52,7 +52,6 @@ argoController.getManifests = async (req, res, next) => {
 //checks if argo token is in database
 argoController.checkToken = async (req, res, next) => {
   try {
-    console.log(req.user)
     let data = await ApiKey.find({});
     console.log(data);
     if (data.length < 1) {
@@ -74,6 +73,24 @@ argoController.checkToken = async (req, res, next) => {
     return next({
       log: 'Error while invoking middleware: checkToken',
       status: 400,
+      message: `Error checkToken: ${err}`,
+    });
+  }
+}
+// user is passed in as req,body.user
+argoController.checkUserToken = async (req, res, next) => {
+  try {
+    const github_id = req.body.user.githubId
+    const User = await User.findOne({githubId: github_id});
+    // after finding user make sure user has apikey and url
+    if (User.argoToken)
+      return next();
+    }
+  catch(err) {
+    console.log(err)
+    return next({
+      log: 'Error server/middleware/argoController : checkUserToken',
+      status: 500,
       message: `Error checkToken: ${err}`,
     });
   }
