@@ -161,5 +161,34 @@ module.exports = {
       }
       return next(error)
     }
+  },
+  //finds all the admin api keys
+  //passes in nothing
+  async checkToken(req, res, next) {
+    try {
+      let data = await ApiKey.find({});
+      if (data.length < 1) {
+        console.log('no token');
+        if(!next) return undefined;
+        return res.status(200).json({
+          api_key: false,
+          url: false,
+        });
+      }
+      else {
+        if(!next) return data;
+        else {
+          res.locals.argoToken = data;
+          return next();
+        }
+      }
+    }
+    catch (err) {
+      return next({
+        log: 'Error while invoking middleware: dbController.checkToken',
+        status: 400,
+        message: `Error checkToken: ${err}`,
+      });
+    }
   }
 }
