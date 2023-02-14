@@ -1,5 +1,5 @@
 const axios = require('axios');
-const {App, Node, ApiKey} = require('../config/MongoDb')
+const {App, Node, ApiKey, User} = require('../config/MongoDb')
 
 const argoController = {};
 
@@ -62,10 +62,7 @@ argoController.checkToken = async (req, res, next) => {
       });
     }
     else {
-      res.locals.argoToken = {
-        api_key: data[0].api_key,
-        url: data[0].url,
-      };
+      res.locals.argoToken = data
       return next();
     }
   }
@@ -78,5 +75,56 @@ argoController.checkToken = async (req, res, next) => {
   }
 }
 
+//check for all user tokens
+argoController.getUserToken = async (req, res, next) => {
+  try {
+    const { user } = req.query;
+    let data = await User.findOne({ githubId: user });
+    if (data.argo_tokens.length < 1) {
+      return res.status(400).json('no token');
+    }
+    else {
+      res.locals.argoTokens = data.argo_tokens
+      return next();
+    }
+  }
+  catch (err) {
+    return next({
+      log: 'Error while invoking middleware: getUserToken',
+      status: 400,
+      message: `Error getUserToken: ${err}`,
+    });
+  }
+}
+
+//grabs all apps user has access to
+argoController.getAllUserApps = async (req, res, next) => {
+  try {
+    let appList = [];
+    for (let i = 0; i < res.locals.argoTokens.length; i++) {
+      let data = await axios.get(`${res.locals.argoTokens[i].url}/api/v1/applications`, {
+        headers: {
+          Authorization: `Bearer ${res.locals.argoTokens[i].api_key}`,
+        }
+      })
+      appList = appList.concat(data.data.items);
+    }
+    res.locals.apps = appList.map(app => {
+      const apps = {};
+      apps.name = app.metadata.name;
+      apps.uid = app.metadata.uid;
+      return apps;
+    })
+    console.log(res.locals.apps);
+    return next();
+  }
+  catch (err) {
+    return next({
+      log: 'Error while invoking middleware: getAllUserApps',
+      status: 400,
+      message: `Error getAllUserApps: ${err}`,
+    });
+  }
+}
 
 module.exports = argoController;

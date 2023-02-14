@@ -1,5 +1,6 @@
 const checkManifestUpdate = require('./checkupdate.js')
 const updateController = require('./updateController.js')
+const dbController = require('./dbController.js')
 
 //updates app list for new application clusters
 function checkAppsUpdate (url, api_key) {
@@ -22,4 +23,13 @@ function checkAppsUpdate (url, api_key) {
   }, 3000)
 }
 
-module.exports = checkAppsUpdate;
+//starts the auto update process
+async function startAutoUpdate () {
+  let keys = await dbController.checkToken();
+  for (let i = 0; i < keys.length; i++) {
+    const { url, api_key } = keys[i];
+    checkAppsUpdate(url, api_key);
+  }
+}
+
+module.exports = {checkAppsUpdate, startAutoUpdate};

@@ -19,7 +19,7 @@ const apiRouter = require('./routes/apirouter');
 //json parsing, cors, and cookie parser
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors());
+app.use(cors({credentials: true, origin: 'http://localhost:5173'}));
 
 //setting up cookie session after logging in
 app.use(cookieSession({
@@ -48,7 +48,7 @@ app.get('/logout', (req, res) => {
   console.log('get logged out punlk')
   req.session = null;
   req.logout();
-  return res.redirect('/');
+  return res.json({ logout: true });
 })
 
 app.get('/', authController.isLoggedIn, (req, res) => {
