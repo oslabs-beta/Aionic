@@ -2,6 +2,11 @@ import { ChangeEvent, useState, useEffect } from 'react';
 import Home from './components/Home';
 import Login from './components/Login';
 
+//successful auth will return an object with this property
+interface User {
+  user: string;
+}
+
 function App() {
   //isLoggedIn changes after successful GitHub auth
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -9,16 +14,19 @@ function App() {
 
   useEffect(() => {
     //fetch the api
-    fetch('http://localhost:3000/api/checkUser')
+    fetch('http://localhost:3000/api/checkUser', {
+      headers: { credentials: 'include' }, //added after info from Jason
+    })
       .then((data: Response) => data.json())
-      .then((data) => {
+      .then((data: string | User) => {
+        //type string?
+        console.log(data);
         //if auth succeeds, we get the username back. need to make sure we get false if it fails
         if (data != 'failed') {
           setIsLoggedIn(true);
           setUsername(data.user);
         }
       });
-    
   });
 
   const handleClick = (e) => {
@@ -26,7 +34,7 @@ function App() {
     fetch('http://localhost:3000/logout')
       .then((data) => data.json)
       .then((data) => console.log(data));
-  }
+  };
 
   if (!isLoggedIn) {
     return (
@@ -36,7 +44,7 @@ function App() {
       </div>
     );
   } else {
-  return <Home />
+    return <Home />;
   }
 }
 
