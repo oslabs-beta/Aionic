@@ -40,7 +40,7 @@ app.use(passport.session());
 app.get('/auth/github/callback',
   passport.authenticate('github', { failureRedirect: '/' }),
   (req, res) => {
-    return res.redirect('http://localhost:5173/');
+    return res.redirect('http://localhost:5173/home');
   });
 
 //sends user to github for authorization and guthub will send back a code for us to grab the github access token

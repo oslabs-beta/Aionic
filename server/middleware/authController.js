@@ -6,7 +6,7 @@ authController.isLoggedIn = (req, res, next) => {
         return next();
     } else {
     res.status(401).send('failed');
-    }
-}
+  }
+};
 
 module.exports = authController;
