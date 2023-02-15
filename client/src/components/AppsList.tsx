@@ -34,7 +34,9 @@ function AppsList() {
     const appsArr: any = [];
 
       //add username here not in parent
-    fetch('http://localhost:3000/api/apps')
+    fetch('http://localhost:3000/api/apps?' + new URLSearchParams({
+      user: 'aribengiyat'
+    }))
       .then((data: Response) => data.json())
       .then((data) => {
         //they are objects with two elements, name and uid

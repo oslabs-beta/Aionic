@@ -7,17 +7,18 @@ function ManifestDetails(props) {
   console.log('queryparam in ML List is: ', state.query.uid);
   useEffect(() => {
     const stateArr: any = [];
-    fetch('http://localhost:3000/api/manifest?' + new URLSearchParams({
+    fetch('http://localhost:3000/api/manifests?' + new URLSearchParams({
       uid: state.query.uid
     }))
       .then((data: Response) => data.json())
-      .then((data: string[]) => {
+      .then((data: any) => {
         console.log('manifests are: ', data);
       
         for (const manifest of data) {
           stateArr.push(
             <div>
-              <p>{JSON.parse(manifest)}</p>
+              <p>Github hash is: {manifest._id }</p>
+              <p>{JSON.parse(manifest.manifest)}</p>
             </div>
           )
         }

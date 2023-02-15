@@ -9,10 +9,17 @@ function AppsHub() {
 
   //check if token and git auth is on serverside
   useEffect(() => {
-    fetch('http://localhost:3000/api/argoToken')
+    fetch('http://localhost:3000/api/argoToken?' + new URLSearchParams({
+      username: 'aribengiyat'
+    }))
       .then((data: Response) => data.json())
-      .then((data: boolean) => {
-        if (data) setArgo(true);
+      .then((data: []) => {
+        console.log(data);
+        if (data[0].api_key.defualt !== null) {
+          console.log('argotoken from endpoint is: ', data)
+          setArgo(true);
+        }
+        else return;
       })
       .catch((err) => console.log(err));
 
@@ -32,7 +39,7 @@ function AppsHub() {
     //   .catch((err) => console.log(err));
   }, []);
 
-  if (!argo) {
+  if (argo) {
     return (
       <div>
        <AppsList/>
