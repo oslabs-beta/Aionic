@@ -2,6 +2,7 @@ const keys = require('../keys.js')
 const mongoose = require('mongoose')
 const {Schema} = mongoose
 const uri = `mongodb+srv://${keys.MongoUser}:${keys.MongoPassword}@cluster0.axjjrae.mongodb.net/?retryWrites=true&w=majority`;
+// const uri = 'mongodb://127.0.0.1:27017'
 
 mongoose.connect(uri, {
   useNewUrlParser: true,
@@ -22,10 +23,9 @@ const AppSchema = new Schema({
 })
 
 const UserSchema = new Schema({
-  gubhibId: {type: String, required: true, unique: true},
-  githubToken: {type: String, default: ''}
-  // argo_token: {type: String, default: ''},
-  // app_ids: {type: Array, default: [{app_id: {type: String}}]}
+  githubId: {type: String, required: true, unique: true},
+  githubToken: {type: String, default: ''},
+  argo_tokens: {type: Array, default: [{api_key: {type: String, defualt: null}, url: {type:String, default: null}}]}
 })
 
 const NodeSchema = new Schema({

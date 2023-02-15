@@ -2,6 +2,7 @@ import React, { Children } from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
 import Home from './components/Home'
+import Protected from './components/Protected'
 import {
   createBrowserRouter,
   RouterProvider,
@@ -15,17 +16,25 @@ const router = createBrowserRouter([
   },
   {
     path: '/home',
-    element: <Home />,
+    element: <Protected />,
+    children: [
+      {
+        path: '/home/',
+        element: <Home />,
+        children: [
+        ]
+      },
+      {
+        path: '/home/manifests',
+        element: <ManifestHub />
+      }
+    ]
   },
-  {
-    path: '/home/manifests',
-    element: <ManifestHub />
-  }
+ 
 ])
 
 
+
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <React.StrictMode>
     <RouterProvider router={router}/>
-  </React.StrictMode>,
 )

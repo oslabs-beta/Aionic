@@ -43,15 +43,13 @@ module.exports = {
   },
   // list of uid needs to be passed into the function as res.locals.uids 
   // format of the data
-  // [
-  //   {
-  //     uid: String
-  //   }
-  // ]
+
+  //     res.locals.uids =[ String...]
+
    getApps: async (req,res,next) => {
     try{
       console.log('here')
-      const response = await App.find(res.locals.uids)
+      const response = await App.find().where('uid').in(res.locals.uids).exec()
       res.locals.response = await response
       return next()
     }catch(err) {
@@ -108,7 +106,7 @@ module.exports = {
   // }
   async findLastNode(req, res, next) {
     try{
-      const {uid} = res.locals
+      const {uid} = req.query
       const app = await App.findOne({uid: uid})
       const lastNode = await Node.findOne({_id: app.tail})
       res.locals.response = await lastNode
@@ -162,6 +160,35 @@ module.exports = {
         log:'data base error'
       }
       return next(error)
+    }
+  },
+  //finds all the admin api keys
+  //passes in nothing
+  async checkToken(req, res, next) {
+    try {
+      let data = await ApiKey.find({});
+      if (data.length < 1) {
+        console.log('no token');
+        if(!next) return undefined;
+        return res.status(200).json({
+          api_key: false,
+          url: false,
+        });
+      }
+      else {
+        if(!next) return data;
+        else {
+          res.locals.argoToken = data;
+          return next();
+        }
+      }
+    }
+    catch (err) {
+      return next({
+        log: 'Error while invoking middleware: dbController.checkToken',
+        status: 400,
+        message: `Error checkToken: ${err}`,
+      });
     }
   }
 }

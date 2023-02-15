@@ -1,20 +1,23 @@
-function App() {
-  const handleClick = (e) => {
-    e.preventDefault();
-    fetch('http://localhost:3000/test')
-      .then((data) => data.json())
-      .then((data) => {
-        console.log(data);
-    })
-  }
+import { ChangeEvent, useState, useEffect } from 'react';
+import { useNavigate } from 'react-router';
+import Home from './components/Home';
+import Login from './components/Login';
 
-  return (
-    <div>
-      <h1>Vite is the best</h1>
-      <button onClick={(e)=>handleClick(e)}>CLICK ME</button>
-      <a href='http://localhost:3000/auth/github'>Login Using GitHub</a>
-   </div>
-  )
+//successful auth will return an object with this property
+interface User {
+  user: string;
 }
 
-export default App
+function App() {
+  //isLoggedIn changes after successful GitHub auth
+
+  const navigate = useNavigate();
+
+    return (
+      <div>
+        <a href='http://localhost:3000/auth/github'>Login Using GitHub</a>
+      </div>
+    );
+}
+
+export default App;
