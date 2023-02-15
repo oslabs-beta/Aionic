@@ -7,10 +7,14 @@ const passport = require('passport');
 const app = express();
 
 //importing middleware and keys
+require('./passport/passport.js');
 const argoController = require('./middleware/argoController');
 const authController = require('./middleware/authController');
-require('./passport/passport.js');
 const keys = require('./keys.js');
+
+//testing
+const startAutoUpdate = require('./middleware/autoUpdate')
+startAutoUpdate()
 
 //importing routers
 const dbRouter = require('./routes/dbrouter');
@@ -78,6 +82,6 @@ app.use((err,req,res,next) => {
 })
 
 //start listening to server
-app.listen(3000, () => {
+app.listen(3009, () => {
   console.log('Listening on 3000')
 })

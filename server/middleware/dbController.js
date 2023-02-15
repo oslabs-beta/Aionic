@@ -106,7 +106,7 @@ module.exports = {
   // }
   async findLastNode(req, res, next) {
     try{
-      const {uid} = res.locals
+      const {uid} = req.query
       const app = await App.findOne({uid: uid})
       const lastNode = await Node.findOne({_id: app.tail})
       res.locals.response = await lastNode

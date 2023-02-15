@@ -26,17 +26,50 @@ argoController.getApps = async (req, res, next) => {
 }
 
 //grabs all the manifests for the requested application cluster
+// show all manifests
 argoController.getManifests = async (req, res, next) => {
   const { uid } = req.query;
   try {
     let data = await App.findOne({ uid });
     const manifests = [];
     let curr = data.tail;
-    while (curr) {
+    let i =0
+    while (i < 5 && curr) {
       let manifestData = await Node.findOne({ _id: curr });
-      manifests.push(manifestData.manifest); 
+      manifests.push(manifestData); 
       curr = manifestData.prev;
+      i++
     }
+    res.locals.manifests = manifests;
+    return next();
+  }
+  catch (err){
+    return next({
+      log: 'Error while invoking middleware: getManifests',
+      status: 400,
+      message: `Error getManifests: ${err}`,
+    });
+  }
+}
+
+// get 5 manifests
+// data comes as req.query 
+// {
+//   _id: string
+// }
+argoController.getNextManifests = async (req, res, next) => {
+  const { _id } = req.query;
+  try {
+    let i = 0
+    const manifests = [];
+    let cur = _id;
+    while (i< 5 && cur){
+      const curNode = Node.find({_id:cur});
+      manifests.push(curNode); 
+      cur = curNode.prev;
+      i+=1;
+    }
+
     res.locals.manifests = manifests;
     return next();
   }
@@ -75,6 +108,7 @@ argoController.checkToken = async (req, res, next) => {
     });
   }
 }
+
 // user is passed in as req,body.user
 argoController.checkUserToken = async (req, res, next) => {
   try {
