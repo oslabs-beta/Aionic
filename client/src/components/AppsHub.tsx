@@ -34,7 +34,6 @@ function AppsHub() {
   } else {
     return (
       <div>
-        <h1>This is AppsHub</h1>
         <AppsList />
       </div>
     )

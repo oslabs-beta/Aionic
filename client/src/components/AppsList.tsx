@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router";
-import { MouseEvent, useEffect, useState } from "react";
+import { MouseEvent, useEffect, useRef, useState } from "react";
 
 function AppsList() {
 
@@ -16,22 +16,27 @@ function AppsList() {
   
   const [appList, setAppList] = useState({});
   const [apps, setApps] = useState([]);
+  const [gitUser, setGitUser] = useState('');
+  const appListRef = useRef({})
   let navigate = useNavigate();
  
   const handleClick = (e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => {
-    e.preventDefault();
-    let appName = e.target.value;
-    navigate(`/home/manifests?${appList.name}`);
+
+      e.preventDefault();
+      console.log(appList.curr)
+      let appName = e.target.parentNode.childNodes[0].innerText;
+      console.log('applistref on button click is: ', appListRef);
+      navigate('/home/manifests', { state: { query: appListRef.curr[appName] } });
   }
 
   //grab the app lists and display
   useEffect((): void => {
     const appsArr: any = [];
 
+      //add username here not in parent
     fetch('http://localhost:3000/api/apps')
       .then((data: Response) => data.json())
       .then((data) => {
-        console.log(data);
         //they are objects with two elements, name and uid
         const stateObj: Data  = {};
         for (const app of data) {
@@ -39,7 +44,7 @@ function AppsList() {
           appsArr.push(
             <div>
               <h2>{`${app.name}`}</h2>
-              <button>Click for details</button>
+              <button onClick={(e) => handleClick(e)}>Click for details</button>
             </div>
           )
         }
@@ -48,6 +53,12 @@ function AppsList() {
       })
   }, [])
 
+  useEffect(() => {
+    console.log('appList updated is: ', appList);
+    appListRef.curr = appList;
+    console.log('applistref is: ', appListRef);
+  },[appList])
+
   
   return (
     <div>
@@ -55,7 +66,6 @@ function AppsList() {
       <section className="container">
         {apps}
       </section>
-      <button onClick={(e)=>handleClick(e)}>Click me to go to manifests!</button>
     </div>
   )
 }
