@@ -82,6 +82,6 @@ app.use((err,req,res,next) => {
 })
 
 //start listening to server
-app.listen(3009, () => {
+app.listen(3000, () => {
   console.log('Listening on 3000')
 })

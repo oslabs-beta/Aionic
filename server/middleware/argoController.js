@@ -58,13 +58,13 @@ argoController.getManifests = async (req, res, next) => {
 //   _id: string
 // }
 argoController.getNextManifests = async (req, res, next) => {
-  const { _id } = req.query;
+  const { id } = req.query;
   try {
     let i = 0
     const manifests = [];
-    let cur = _id;
+    let cur = id;
     while (i< 5 && cur){
-      const curNode = Node.find({_id:cur});
+      const curNode = await Node.findOne({_id:cur});
       manifests.push(curNode); 
       cur = curNode.prev;
       i+=1;
@@ -74,6 +74,7 @@ argoController.getNextManifests = async (req, res, next) => {
     return next();
   }
   catch (err){
+    console.log(err)
     return next({
       log: 'Error while invoking middleware: getManifests',
       status: 400,
@@ -172,6 +173,7 @@ argoController.getAllUserApps = async (req, res, next) => {
     return next();
   }
   catch (err) {
+    console.log
     return next({
       log: 'Error while invoking middleware: getAllUserApps',
       status: 400,

@@ -36,7 +36,7 @@ router.get('/apps', argoController.getUserToken, argoController.getAllUserApps, 
 //   }
 // ]
 // this gets the first five of the manifests
-router.get('/manifest', argoController.getManifests, (req, res) => {
+router.get('/manifests', argoController.getManifests, (req, res) => {
   return res.json(res.locals.manifests)
 })
 
@@ -52,7 +52,7 @@ router.get('/manifest', argoController.getManifests, (req, res) => {
 //   }
 // ]
 // this gets the next five of the manifests
-router.get('/nextManifest', argoController.getNextManifests, (req,res)=>{
+router.get('/nextManifests', argoController.getNextManifests, (req,res)=>{
   return res.json(res.locals.manifests)
 }), 
 // //endpoint to check for user argoToken and start querying
