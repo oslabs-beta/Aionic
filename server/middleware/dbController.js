@@ -164,7 +164,7 @@ module.exports = {
   },
   //finds all the admin api keys
   //passes in nothing
-  async checkToken(req, res, next) {
+  async globalapikey(req, res, next) {
     try {
       let data = await ApiKey.find({});
       if (data.length < 1) {
