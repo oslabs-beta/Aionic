@@ -1,4 +1,6 @@
-function ManifestList(props) {
+
+function ManifestList() {
+  
   return (
     <div>
       <h1>This is ManifestList</h1>
