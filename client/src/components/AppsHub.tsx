@@ -35,19 +35,12 @@ function AppsHub() {
   if (!argo) {
     return (
       <div>
-        {/* <TokenInput
-          tokens={{ argo: argo, git: git, url: url }}
-          setGit={setGit}
-          setArgo={setArgo}
-          setUrl={setUrl}
-        /> */}
+       <AppsList/>
       </div>
     );
   } else {
     return (
       <div>
-        <AppsList />
-
         <TokenInput
           tokens={{ argo: argo, git: git, url: url }}
           setGit={setGit}

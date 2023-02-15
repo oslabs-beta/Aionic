@@ -87,9 +87,9 @@ argoController.getNextManifests = async (req, res, next) => {
 //Change it
 argoController.checkToken = async (req, res, next) => {
   try {
-    let data = await ApiKey.find({});
-    console.log(data);
-    if (data.length < 1) {
+    const { username } = req.query;
+    let data = await User.findOne({ githubId: username });
+    if (!data.argo_tokens) {
       console.log('no token');
       res.status(200).json({
         api_key: false,
@@ -97,11 +97,11 @@ argoController.checkToken = async (req, res, next) => {
       });
     }
     else {
-      res.locals.argoToken = data
+      res.locals.argoToken = data.argo_tokens
       return next();
     }
   }
-  catch {
+  catch(err) {
     return next({
       log: 'Error while invoking middleware: checkToken',
       status: 400,

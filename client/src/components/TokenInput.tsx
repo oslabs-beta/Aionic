@@ -20,8 +20,10 @@ function TokenInput(props: props) {
 
   const handleArgoSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+  
 
     const req = { api_key: argoTokenValue, url: argoUrlValue };
+    console.log(req);
 
     fetch('http://localhost:3000/db/addToken', {
       method: 'POST',
