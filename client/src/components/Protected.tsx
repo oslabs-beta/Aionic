@@ -46,7 +46,6 @@ function Protected() {
     return (
       <div>
         <button onClick={(e) => handleClick(e)}>Logout</button>
-        <h1>Protect</h1>
         <Outlet />
       </div>
     )

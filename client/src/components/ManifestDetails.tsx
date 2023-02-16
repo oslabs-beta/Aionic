@@ -2,34 +2,65 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router";
 
 function ManifestDetails(props) {
-  const [mlList, setMlList] = useState([]);
-  const { state } = useLocation();
-  console.log('queryparam in ML List is: ', state.query.uid);
+  const [mani, setMani] = useState([]);
   useEffect(() => {
-    const stateArr: any = [];
-    fetch('http://localhost:3000/api/manifest?' + new URLSearchParams({
-      uid: state.query.uid
-    }))
-      .then((data: Response) => data.json())
-      .then((data: string[]) => {
-        console.log('manifests are: ', data);
-      
-        for (const manifest of data) {
+    console.log(props.details)
+    // const manifests = JSON.parse(props.details[0].manifest);
+    console.log('child has these: ', props.details)
+    const stateArr = [];
+    // loop over passed in array to find correct manifests
+    for (const obj of props.details) {
+      if (obj.revision === props.sha) {
+        const manifests = JSON.parse(obj.manifest)
+        console.log('hit if statement: ', obj)
+        for (const manifest of manifests) {
           stateArr.push(
             <div>
-              <p>{JSON.parse(manifest)}</p>
+              <p>{manifest}</p>
             </div>
           )
         }
-        setMlList(stateArr)
-      })
+      }
+    }
+  
+    setMani(stateArr)
   }, [])
+
+  const handleClick = e => {
+    e.preventDefault();
+    props.setDetail(false);
+  }
   return (
     <div>
+      <button onClick={(e)=>handleClick(e)}>Back</button>
       <h1>Manifest Details</h1>
-      {mlList}
+      {mani}
+      <button>Push to git</button>
     </div>
   )
 }
 
 export default ManifestDetails;
+
+// const stateArr: any = [];
+    // fetch('http://localhost:3000/api/manifests?' + new URLSearchParams({
+    //   uid: state.query.uid
+    // }))
+    //   .then((data: Response) => data.json())
+    //   .then((data: any) => {
+    //     console.log('manifests are: ', data);
+      
+    //     for (const manifest of data) {
+    //       const parsed = JSON.parse(manifest.manifest);
+    //       for (const parsedMan of parsed) {
+    //         stateArr.push(
+    //           <div>
+    //             <p>Github hash is: {manifest._id}</p>
+    //             <p>{parsedMan}</p>
+    //           </div>
+    //         )
+    //       }
+        
+    //     }
+    //     setMlList(stateArr)
+    //   })
