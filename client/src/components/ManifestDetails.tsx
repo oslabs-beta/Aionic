@@ -15,12 +15,16 @@ function ManifestDetails(props) {
         console.log('manifests are: ', data);
       
         for (const manifest of data) {
-          stateArr.push(
-            <div>
-              <p>Github hash is: {manifest._id }</p>
-              <p>{JSON.parse(manifest.manifest)}</p>
-            </div>
-          )
+          const parsed = JSON.parse(manifest.manifest);
+          for (const parsedMan of parsed) {
+            stateArr.push(
+              <div>
+                <p>Github hash is: {manifest._id}</p>
+                <p>{parsedMan}</p>
+              </div>
+            )
+          }
+        
         }
         setMlList(stateArr)
       })
