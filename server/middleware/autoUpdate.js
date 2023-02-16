@@ -16,7 +16,7 @@ async function startAutoUpdate () {
     }
   }else{
     console.log('no token found')
-     setTimeout(startAutoUpdate, 3000)}
+    setTimeout(startAutoUpdate, 60000)}
 }
 
 //updates app list for new application clusters
@@ -24,10 +24,10 @@ function checkAppsUpdate (url, api_key) {
   let init = true
    setInterval(async () => {
     try {
-      console.log('checkAppUpdate function invoked', init)
+      // console.log('checkAppUpdate function invoked', init)
       // makes api calls to argo
       let appList;
-      const apps = await updateController.updateApp(undefined, { locals: { argoToken: { url, api_key }}}, (err)=> {console.error(err)})
+      const apps = await updateController.updateApp(undefined, { locals: { argoToken: { url, api_key }}}, (err)=> {})
       if (init) {
          appList = apps.map( app =>{
           const {name , uid} = app.metadata
@@ -35,13 +35,10 @@ function checkAppsUpdate (url, api_key) {
          })
          await updateController.updateAppDatabase(undefined, { locals: { apps }}, (err)=> {})
          init = false;
-         console.log(appList)
-      }else {
+      } else {
         // saving new apps to database
         appList = await updateController.updateAppDatabase(undefined, { locals: { apps }}, (err)=> {})
-        console.log(appList)
       }
-      
       // await updateController.addManifestForApp(undefined, { locals: { appList, argoToken: { url, api_key }}})
       if (appList !== undefined){ 
         for (let i = 0; i < appList.length; i++) {
@@ -53,26 +50,22 @@ function checkAppsUpdate (url, api_key) {
       }
     }
     catch (err) {
-      console.error('server/middleware/updateAppList.js checkAppsUpdate', err)
+      // console.error('server/middleware/updateAppList.js checkAppsUpdate', err)
     }
-  }, 3000)
+  }, 60000)
 }
-
-
 
 //factory function checks for manifest updates
 function checkManifestUpdate(app, url, api_key) {
   this.apikey = api_key
   this.url = url
-  this.time = 3000
+  this.time = 60000
   this.checkingManifest = false;
   this.app = app
   this.intervalId = undefined
   this.revision = undefined
 
 }
-
-
 
 checkManifestUpdate.prototype.update = function() {
   if (!this.checkingManifest) {
@@ -87,24 +80,20 @@ checkManifestUpdate.prototype.update = function() {
             this.revision = revision
           }
         }
-
         const response = await axios.get(`${this.url}/api/v1/applications/${this.app.name}/manifests`, {
           headers: {
             Authorization: `Bearer ${this.apikey}`
           }})
           const {manifests} = response.data
         if (this.revision !== response.data.revision) {
-          console.log('revisions:',this.revision,'second', response.data.revision)
           const newNode = await addNode(undefined, {locals:{uid: this.app.uid, manifest: JSON.stringify(manifests), revision: response.data.revision}})
-          console.log('newNode',newNode.revision)
           this.revision = await newNode.revision
           return newNode
         }
-
-      }catch(err) {
+      } catch(err) {
         console.error('server/middleware/checkUpdate.js checkManifestUpdate', err)
       }
-    },this.time)
+    }, this.time)
     return this.intervalId
   }
 } 
