@@ -15,7 +15,7 @@ function AppsHub() {
       .then((data: Response) => data.json())
       .then((data: []) => {
         console.log(data);
-        if (data[0].api_key.defualt !== null) {
+        if (data[0].api_key !== null) {
           console.log('argotoken from endpoint is: ', data)
           setArgo(true);
         }

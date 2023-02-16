@@ -67,6 +67,7 @@ argoController.getUserToken = async (req, res, next) => {
   try {
     const { user } = req.query;
     let data = await User.findOne({ githubId: user });
+    console.log(data.argo_tokens.length)
     if (data.argo_tokens.length < 1) {
       return res.status(400).json({
         api_key: false,
