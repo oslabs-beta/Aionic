@@ -17,7 +17,6 @@ const startAutoUpdate = require('./middleware/autoUpdate')
 startAutoUpdate()
 
 //importing routers
-const dbRouter = require('./routes/dbrouter');
 const apiRouter = require('./routes/apirouter');
 
 //json parsing, cors, and cookie parser
@@ -60,7 +59,6 @@ app.get('/', authController.isLoggedIn, (req, res) => {
 })
 
 //routers
-app.use('/db', dbRouter)
 app.use('/api', apiRouter)
 
 //unknown router handler

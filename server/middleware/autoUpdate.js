@@ -8,13 +8,15 @@ const axios = require('axios')
 //starts the auto update process
 async function startAutoUpdate () {
   //check argo api_keys and urls
-  let keys = await dbController.checkToken();
-  for (let i = 0; i < keys.length; i++) {
-    const { url, api_key } = keys[i];
-    checkAppsUpdate(url, api_key);
-  }
-
-
+  let keys = await dbController.globalapikey();
+  if (Array.isArray(keys)) {
+    for (let i = 0; i < keys.length; i++) {
+      const { url, api_key } = keys[i];
+      checkAppsUpdate(url, api_key);
+    }
+  }else{
+    console.log('no token found')
+     setTimeout(startAutoUpdate, 3000)}
 }
 
 //updates app list for new application clusters
