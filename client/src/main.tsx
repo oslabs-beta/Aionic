@@ -8,6 +8,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import ManifestHub from './components/ManifestHub';
+import AppsHub from './components/AppsHub'
 
 const router = createBrowserRouter([
   {
@@ -20,7 +21,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/home/',
-        element: <Home />,
+        element: <AppsHub />,
         children: [
         ]
       },

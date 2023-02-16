@@ -13,9 +13,13 @@ function AppsHub() {
       user: 'aribengiyat'
     }))
       .then((data: Response) => data.json())
-      .then((data: boolean) => {
-        if (data) setArgo(true);
-        console.log(argo)
+      .then((data: []) => {
+        console.log(data);
+        if (data[0].api_key.defualt !== null) {
+          console.log('argotoken from endpoint is: ', data)
+          setArgo(true);
+        }
+        else return;
       })
       .catch((err) => console.log(err));
 
@@ -35,7 +39,7 @@ function AppsHub() {
     //   .catch((err) => console.log(err));
   }, []);
 
-  if (!argo) {
+  if (argo) {
     return (
       <div>
        <AppsList/>
