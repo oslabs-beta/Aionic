@@ -21,11 +21,12 @@ const AppSchema = new Schema({
   head: {type: String, default: null},
   tail: {type: String, default: null}
 })
+const UserApiKeys = new Schema({api_key: {type: String, unique: true}, url: {type:String, default: null}})
 
 const UserSchema = new Schema({
   githubId: {type: String, required: true, unique: true},
-  githubToken: {type: String, default: ''},
-  argo_tokens: {type: Array, default: [{api_key: {type: String, defualt: null}, url: {type:String, default: null}}]}
+  githubToken: {type: String, default: '', unique:true},
+  argo_tokens: {type: [UserApiKeys], default: [], unique:true}
 })
 
 const NodeSchema = new Schema({
@@ -35,7 +36,7 @@ const NodeSchema = new Schema({
   next: {type: String, default: null}
 })
 const ApiKeySchema = new Schema({
-  api_key: {type: String, required: true},
+  api_key: {type: String, required: true, unique: true},
   url: {type: String, required: true}
 })
 

@@ -1,5 +1,5 @@
 
-const {App, Node, ApiKey} = require('../config/MongoDb')
+const {User, App, Node, ApiKey} = require('../config/MongoDb')
 
 
 
@@ -163,7 +163,8 @@ module.exports = {
     }
   },
   //finds all the admin api keys
-  //passes in nothing
+  //passes in nothin
+  // checking gloablapi key
   async globalapikey(req, res, next) {
     try {
       let data = await ApiKey.find({});
@@ -190,5 +191,40 @@ module.exports = {
         message: `Error checkToken: ${err}`,
       });
     }
+  },
+
+  //post request
+  // req.body = t
+  updateUserApiKey: async (req,res,next) => {
+    try {
+      const {api_key, url, githubId} = req.body
+      const user = await User.updateOne({githubId: githubId, 'argo_tokens.api_key': {$ne: api_key}}, {$push: {argo_tokens: {api_key: api_key, url:url}}});
+      res.locals.response = 'successfully saved';
+      return next()
+    }catch(err) {
+      console.log("this is the fucntion error ",err);
+      const error = {
+        log: `server/middlewarte/dbcontroller error`,
+        status: 500,
+        message:'server side error check serverlog'
+      };
+      return next(error)
+    };
+  },
+  updateUserGitToken: async (req,res,next) => {
+    try {
+      const {githubId, githubToken} = req.body
+      const user = await User.updateOne({githubId: githubId}, {githubToken: githubToken});
+      res.locals.response = 'successfully saved';
+      return next()
+    }catch(err) {
+      console.log("this is the fucntion error ",err);
+      const error = {
+        log: `server/middlewarte/dbcontroller error`,
+        status: 500,
+        message:'server side error check serverlog'
+      };
+      return next(error)
+    };
   }
 }
