@@ -10,12 +10,12 @@ function AppsHub() {
   //check if token and git auth is on serverside
   useEffect(() => {
     fetch('http://localhost:3000/api/argoToken?' + new URLSearchParams({
-      username: 'aribengiyat'
+      user: 'aribengiyat'
     }))
       .then((data: Response) => data.json())
       .then((data: []) => {
         console.log(data);
-        if (data[0].api_key.defualt !== null) {
+        if (data[0].api_key !== null) {
           console.log('argotoken from endpoint is: ', data)
           setArgo(true);
         }

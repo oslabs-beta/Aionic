@@ -8,7 +8,6 @@ const updateController = {}
 //queries argoCD for all application clusters running
 updateController.updateApp = async (req, res, next) => {
   try {
-    console.log(res.locals)
     let data = await axios.get(`${res.locals.argoToken.url}/api/v1/applications`, {
       headers: {
         Authorization: `Bearer ${res.locals.argoToken.api_key}`,

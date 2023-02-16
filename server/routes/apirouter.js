@@ -88,8 +88,9 @@ router.get('/gitToken', gitController.checkToken, (req, res) => {
   return res.status(200).json(res.locals.gitToken)
 })
 
-router.get('/argoToken', argoController.checkToken, (req, res) => {
-  return res.json(res.locals.argoToken);
+router.get('/argoToken', argoController.getUserToken, (req, res) => {
+  console.log(res.locals.argoToken)
+  return res.json(res.locals.argoTokens);
 })
 
 module.exports = router;

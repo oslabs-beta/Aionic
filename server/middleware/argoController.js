@@ -3,29 +3,8 @@ const {App, Node, ApiKey, User} = require('../config/MongoDb')
 
 const argoController = {};
 
-//grabs all the application clusters
-argoController.getApps = async (req, res, next) => {
-  try {
-    let data = await App.find({});
-    data = data.map(app => {
-      const apps = {};
-      apps.name = app.name;
-      apps.uid = app.uid;
-      return apps;
-    })
-    res.locals.apps = data;
-    return next();
-  }
-  catch (err) {
-    return next({
-      log: 'Error while invoking middleware: getApps',
-      status: 400,
-      message: `Error getApps: ${err}`,
-    });
-  }
-}
 
-//grabs all the manifests for the requested application cluster
+//grabs the first five most recent manifests for the requested application cluster
 // show all manifests
 argoController.getManifests = async (req, res, next) => {
   const { uid } = req.query;
@@ -83,59 +62,17 @@ argoController.getNextManifests = async (req, res, next) => {
   }
 }
 
-//checks if argo token is in database
-//Change it
-argoController.checkToken = async (req, res, next) => {
-  try {
-    const { username } = req.query;
-    let data = await User.findOne({ githubId: username });
-    if (!data.argo_tokens) {
-      console.log('no token');
-      res.status(200).json({
-        api_key: false,
-        url: false,
-      });
-    }
-    else {
-      res.locals.argoToken = data.argo_tokens
-      return next();
-    }
-  }
-  catch(err) {
-    return next({
-      log: 'Error while invoking middleware: checkToken',
-      status: 400,
-      message: `Error checkToken: ${err}`,
-    });
-  }
-}
-
-// user is passed in as req,body.user
-argoController.checkUserToken = async (req, res, next) => {
-  try {
-    const github_id = req.body.user.githubId
-    const User = await User.findOne({githubId: github_id});
-    // after finding user make sure user has apikey and url
-    if (User.argoToken)
-      return next();
-    }
-  catch(err) {
-    console.log(err)
-    return next({
-      log: 'Error server/middleware/argoController : checkUserToken',
-      status: 500,
-      message: `Error checkToken: ${err}`,
-    });
-  }
-}
-
 //check for all user tokens
 argoController.getUserToken = async (req, res, next) => {
   try {
     const { user } = req.query;
     let data = await User.findOne({ githubId: user });
+    console.log(data.argo_tokens.length)
     if (data.argo_tokens.length < 1) {
-      return res.status(400).json('no token');
+      return res.status(400).json({
+        api_key: false,
+        url: false,
+      });
     }
     else {
       res.locals.argoTokens = data.argo_tokens
