@@ -21,11 +21,10 @@ function AppsList() {
   let navigate = useNavigate();
  
   const handleClick = (e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => {
-
       e.preventDefault();
       console.log(appList.curr)
       let appName = e.target.parentNode.childNodes[0].innerText;
-      console.log('applistref on button click is: ', appListRef);
+      // console.log('applistref on button click is: ', appListRef);
       navigate('/home/manifests', { state: { query: appListRef.curr[appName] } });
   }
 
@@ -56,9 +55,9 @@ function AppsList() {
   }, [])
 
   useEffect(() => {
-    console.log('appList updated is: ', appList);
+    // console.log('appList updated is: ', appList);
     appListRef.curr = appList;
-    console.log('applistref is: ', appListRef);
+    // console.log('applistref is: ', appListRef);
   },[appList])
 
   
