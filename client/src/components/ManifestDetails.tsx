@@ -5,16 +5,24 @@ function ManifestDetails(props) {
   const [mani, setMani] = useState([]);
   useEffect(() => {
     console.log(props.details)
-    const manifests = JSON.parse(props.details[0].manifest);
+    // const manifests = JSON.parse(props.details[0].manifest);
     console.log('child has these: ', props.details)
     const stateArr = [];
-    for (const manifest of manifests) {
-      stateArr.push(
-        <div>
-          <p>{manifest}</p>
-        </div>
-      )
+    // loop over passed in array to find correct manifests
+    for (const obj of props.details) {
+      if (obj.revision === props.sha) {
+        const manifests = JSON.parse(obj.manifest)
+        console.log('hit if statement: ', obj)
+        for (const manifest of manifests) {
+          stateArr.push(
+            <div>
+              <p>{manifest}</p>
+            </div>
+          )
+        }
+      }
     }
+  
     setMani(stateArr)
   }, [])
 

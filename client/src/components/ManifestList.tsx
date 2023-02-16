@@ -15,6 +15,7 @@ function ManifestList() {
   const [mlList, setMlList] = useState([]);
   const [detail, setDetail] = useState(false);
   const [manifests, setManifests] = useState([]);
+  const [sha, setSha] = useState('');
   const { state } = useLocation();
 
   useEffect(() => {
@@ -29,7 +30,7 @@ function ManifestList() {
           stateArr.push(
             <div>
               <button onClick={(e)=>handleBack(e)}>Back to all apps</button>
-              <h2>These are the manifests for git sha: {el.revision}</h2>
+              <h2>These are the manifests for git sha: <span>{el.revision}</span></h2>
               <button onClick={(e) => handleClick(e)}>Click to see all manifests from that date</button>
             </div>
           )
@@ -44,8 +45,10 @@ function ManifestList() {
 
   const handleClick = e => {
     e.preventDefault();
+    const gitSha = e.target.parentNode.childNodes[1].childNodes[1].innerText
     console.log(mlList)
     setDetail(true);
+    setSha(gitSha);
   }
 
 
@@ -61,7 +64,8 @@ function ManifestList() {
     return(
       <ManifestDetails
         details={manifests}
-        setDetail = {setDetail}
+        setDetail={setDetail}
+        sha={sha}
       />
     )
   }
