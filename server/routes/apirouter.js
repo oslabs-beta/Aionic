@@ -5,21 +5,38 @@ const argoController = require('../middleware/argoController');
 const updateController = require('../middleware/updateController');
 const gitController = require('../middleware/gitController');
 const {checkAppsUpdate, startAutoUpdate} = require('../middleware/autoUpdate');
+const dbController = require('../middleware/dbController');
 
+
+// req.body ={
+//   githubId,
+//   githubToken
+// }
+router.post('/usergithubtoken', dbController.updateUserGitToken, (req,res)=> {
+  return res.json(res.locals.response)
+})
+
+//
+router.post('/userapikey', dbController.updateUserApiKey, (req,res)=> {
+  return res.json(res.locals.response)
+})
+// req.body ={
+//   api_key
+//   url
+// }
+
+// this as global apiKey for autoupdate functionality
+router.post('/globalkey', dbController.addKey, (req,res) =>{
+  return res.json('successfully added')
+})
 //endpoint for checking if user is authenticated
 router.get('/checkUser', authController.isLoggedIn, (req, res) => {
   console.log('user is being checked');
   return res.json(req.user);
 })
-
 //frontend request 
 //endpoint for apps request
-// [
-//   {
-//     name: String,
-//     uid: String
-//   }
-// ]
+// req.query.user = string
 router.get('/apps', argoController.getUserToken, argoController.getAllUserApps, (req, res) => {
   return res.status(200).json(res.locals.apps)
 });
@@ -59,11 +76,6 @@ router.get('/nextManifests', argoController.getNextManifests, (req,res)=>{
 // router.get('/argoToken', argoController.getUserToken, argoController.getAllUserApps, updateController.updateAppDatabase, updateController.addManifestForApp, (req, res) => {
 //   return res.status(200).json('success');
 // })
-
-//testing
-
-  
-
 
 //endpoint to check for general argoToken and start autoupdating from argo to DB
 // router.get('/startAutoUpdate', argoController.checkToken, updateController.updateApp, updateController.updateAppDatabase, updateController.addManifestForApp, updateController.startConstantUpdate, (req, res) => {
