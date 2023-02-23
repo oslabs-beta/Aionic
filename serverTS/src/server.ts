@@ -5,6 +5,7 @@ import express, {Request, Response, NextFunction, RequestHandler} from 'express'
 import cors from 'cors'
 const app = express();
 const PORT = 3000;
+import './passport/passport'
 
 import * as arogController from './controllers/argoController'
 import * as authController from './controllers/authController'
@@ -32,7 +33,7 @@ app.get('/auth/github/callback',
   }
 );
 
-app.get('/auth/github/',
+app.get('/auth/github',
   passport.authenticate('github', {scope: ['user:email']})
 );
 

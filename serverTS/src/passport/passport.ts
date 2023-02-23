@@ -1,6 +1,6 @@
 import passport from 'passport';
-import keys from '../keys.js';
-import {User} from '../config/MongoDb.js';
+import keys from '../keys';
+import {User} from '../config/MongoDb';
 import { Strategy as GitHubStrategy } from 'passport-github2';
 import * as types from '../types';
 
