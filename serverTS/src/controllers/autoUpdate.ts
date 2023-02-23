@@ -38,8 +38,8 @@ export const startAutoUpdate =  (): void  => {
       let apps = await data.json();
         appList = apps.items.map( (app: any) => {
           const {name, uid} = app.metadata
-          const {repoURL} = app.spec.source
-          return {name, uid, repoURL}
+          const {source} = app.spec
+          return {name, uid, source}
         })
       if (init) {
         init = false;
@@ -50,8 +50,8 @@ export const startAutoUpdate =  (): void  => {
       if (appList.length > 0) {
         for (let app of appList) {
           let appDb:T.App = await App.findOne({uid: app.uid});
-          const {name, uid, repoURL, head, tail} = appDb;
-          const checkupdate = new checkManifestUpdate({name, uid, repoURL, head, tail}, url, api_key);
+          const {name, uid, source, head, tail} = appDb;
+          const checkupdate = new checkManifestUpdate({name, uid, source, head, tail}, url, api_key);
           checkupdate.update()
         }
       }
@@ -67,10 +67,10 @@ async function updateAppList(arr:T.App[]):Promise<T.App[] | T.error> {
   try {
     const appList:T.App[] = []
     for (let i:number =0; i < arr.length; i++) {
-      const {name, uid, repoURL} = arr[i];
+      const {name, uid, source} = arr[i];
       const app = await App.find({uid});
       if (app.length < 1) {
-        const app:T.App = await App.create({name, uid, repoURL});
+        const app:T.App = await App.create({name, uid, source});
         appList.push(app);
       }
     }

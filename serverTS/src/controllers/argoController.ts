@@ -16,14 +16,17 @@ export const getAllUserApps = async (req: Request, res: Response, next: NextFunc
         })
         data = await data.json()
         appList = appList.concat(data.items);
+
       }
+      console.log(appList)
       res.locals.apps = appList.map(app => {
         const apps = {} as T.App;
         apps.name = app.metadata.name;
         apps.uid = app.metadata.uid;
-        apps.repoURL = app.spec.sources
+        apps.source = app.spec.source
         return apps;
       })
+      console.log(res.locals.apps)
       return next();
     }
     catch (err) {

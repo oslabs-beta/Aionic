@@ -24,7 +24,11 @@ export interface App {
   _id?: any,
   name: string,
   uid: string,
-  repoURL: string,
+  source: {
+    repoURL: string,
+    path:string,
+    targetRevision: string
+  },
   date?: Date,
   head?: string,
   tail?: string,
