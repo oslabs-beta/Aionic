@@ -1,0 +1,7 @@
+{
+  "global": {
+    "api_key": "[PLACE ARGO TOKEN HERE]",
+    "url": "[PLACE ARGO URL HERE]"
+  },
+  "mongodb_uri": "[PLACE MONGODB URI HERE]"
+}
