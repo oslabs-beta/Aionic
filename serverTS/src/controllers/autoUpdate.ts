@@ -2,6 +2,7 @@ import { Node, App } from '../config/MongoDb';
 import {addNode} from './dbController';
 import * as T from '../types'
 import { ApiKey } from '../config/MongoDb';
+import { config } from '../keys';
 
 export const startAutoUpdate = async () => {
   try {

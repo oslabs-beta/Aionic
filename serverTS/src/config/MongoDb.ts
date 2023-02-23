@@ -1,8 +1,8 @@
-import keys from '../keys'
 import mongoose, { Schema } from 'mongoose'
 import * as T from '../types'
+import { config } from '../keys'
 
-const uri = `mongodb+srv://${keys.MongoUser}:${keys.MongoPassword}@cluster0.axjjrae.mongodb.net/?retryWrites=true&w=majority`
+const uri = config.mongodb_uri;
 
 
 mongoose.connect(uri, {
