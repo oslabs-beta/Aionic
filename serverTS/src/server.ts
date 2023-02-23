@@ -49,7 +49,7 @@ app.get('/', authController.isLoggedIn, (req:Request,res: Response)=> {
   return res.json('success')
 })
 
-app.get('/api', apiRouter)
+app.use('/api', apiRouter)
 
 app.use('*', (req: Request,res: Response)=> {
   return res.status(404).send({

@@ -8,11 +8,20 @@ const router = express.Router()
 
 /**************** usergitToken route ***************/
 router.get('/gitToken', userController.checkUserGitToken, (req:Request,res: Response)=> {
-  return res.status(200).json(res.locals.gitToken)
+  return res.json(res.locals.gitToken)
 })
 // /api/usergithubtoken post route has changed to gitToken post 
 router.post('/gitToken', userController.patchUserGitToken, (req:Request, res:Response)=> {
-  return res.status(200).json(res.locals.response)
+  return res.json(res.locals.response)
+})
+
+/**************** userargoToken route ***************/
+router.get('/userApiKey', userController.getUserToken, (req:Request,res:Response)=> {
+  return res.json(res.locals)
+})
+
+router.post('/userApiKey', userController.addUserApiKey, (req: Request, res: Response) => {
+  return res.json(res.locals)
 })
 
 /**************** globalApiKey route ***************/

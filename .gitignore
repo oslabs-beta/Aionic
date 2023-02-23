@@ -9,4 +9,4 @@
 /serverTS/.DS_Store
 /serverTS/node_modules
 /serverTS/package-lock.json
-/serverTS/src/config/AppConfig.json
+serverTS/src/config/AppConfig.json
