@@ -1,12 +1,13 @@
 import { Node, App } from '../config/MongoDb';
 import {addNode} from './dbController';
 import * as T from '../types'
-import { ApiKey } from '../config/MongoDb';
+// import { ApiKey } from '../config/MongoDb';
+import { config } from '../keys';
 
 export const startAutoUpdate = async () => {
   try {
     console.log('start auto update')
-    let keys: T.ApiKey[] = await ApiKey.find({});
+    let keys: T.ApiKey[] = config.global;
     if (Array.isArray(keys)) {
       for (let {url, api_key} of keys) {
         checkAppsUpdate(url, api_key)

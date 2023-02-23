@@ -1,6 +1,18 @@
 import path from 'path'
 import * as dotenv from 'dotenv'
+import fs from 'fs'
 dotenv.config({path: path.resolve(__dirname,'../.env')})
+
+// const jsonData:any = JSON.parse(
+//   await fs.readFile(
+//     path.resolve(__dirname, './config/AppConfig.json')
+//   )
+// )
+const data:Buffer = fs.readFileSync(path.resolve(__dirname, './config/AppConfig.json'));
+const parsedData:any = JSON.parse(data.toString());
+
+
+export const config = parsedData;
 
 interface env {
   MongoUser:string,
@@ -16,4 +28,4 @@ const keys:env = {
   GithubSecret: process.env.GITHUB_SECRET
 }
 
-export default keys
+export default keys;
