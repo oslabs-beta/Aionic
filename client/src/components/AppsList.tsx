@@ -39,6 +39,7 @@ function AppsList() {
     }))
       .then((data: Response) => data.json())
       .then((data) => {
+        console.log(data);
         //they are objects with two elements, name and uid
         const stateObj: Data  = {};
         for (const app of data) {
