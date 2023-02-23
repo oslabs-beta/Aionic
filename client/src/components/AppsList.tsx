@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router";
 import { MouseEvent, useEffect, useRef, useState } from "react";
+import axios from "axios"
 
 function AppsList() {
 
@@ -35,9 +36,7 @@ function AppsList() {
       //add username here not in parent
     fetch('http://localhost:3000/api/apps?' + new URLSearchParams({
       user: 'aribengiyat'
-    }), {
-      Header: "Access-Control-Allow-Origin"
-    })
+    }))
       .then((data: Response) => data.json())
       .then((data) => {
         //they are objects with two elements, name and uid
@@ -54,6 +53,7 @@ function AppsList() {
         setAppList(stateObj);
         setApps(appsArr);
       })
+    .catch((err)=>console.log('error occured fetching apps: ',))
   }, [])
 
   useEffect(() => {

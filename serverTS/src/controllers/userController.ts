@@ -4,7 +4,7 @@ import * as T from "../types"
 //User Git Token************************************************************************************************
 
 export const checkUserGitToken = async (req:Request, res:Response, next:NextFunction): Promise<any> => {
-    const { user } = req;
+    const { user } = req.query;
     let data: T.User = await User.findOne({ githubId: user })
     const { githubId, githubToken } = data;
     if (githubToken === '') {
