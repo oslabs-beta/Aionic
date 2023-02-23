@@ -14,7 +14,8 @@ export const getAllUserApps = async (req: Request, res: Response, next: NextFunc
             Authorization: `Bearer ${res.locals.argoTokens[i].api_key}`,
           }
         })
-        appList = appList.concat(data.data.items);
+        data = await data.json()
+        appList = appList.concat(data.items);
       }
       res.locals.apps = appList.map(app => {
         const apps = {} as T.App;
@@ -44,8 +45,10 @@ export const updateApp = async (req: Request, res: Response, next: NextFunction)
         Authorization: `Bearer ${res.locals.argoToken.api_key}`,
       }
     })
-    if (req === undefined) return data.data.items
-    res.locals.apps = data.data.items;
+    data = await data.json()
+    
+    if (req === undefined) return data.items
+    res.locals.apps = data.items;
     return next();
   }
   catch (err) {

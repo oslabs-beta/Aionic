@@ -4,34 +4,30 @@ import * as T from '../types'
 import { ApiKey } from '../config/MongoDb';
 import { config } from '../keys';
 
-export const startAutoUpdate = async () => {
-  try {
-    console.log('start auto update')
-    let keys: T.ApiKey[] = await ApiKey.find({});
-    if (Array.isArray(keys)) {
-      for (let {url, api_key} of keys) {
-        checkAppsUpdate(url, api_key)
-      }
-      console.log('check app')
-    }else {
-      console.log('Error:: server/controllers/autoUpdate no token found')
-      setTimeout(startAutoUpdate, 60000)
-    }
-  }catch(err) {
-    console.error(err)
-    const error:T.error = {
-      message:`server/controller/autoUpdate error executing funtion`,
-      status: 500,
-      log:'autoupdate failed'
-    }
-    console.log(error);
-  }
-}
+// export const  = async () => {
+//   try {
+//     console.log('start auto update')
+//     const {url, api_key}: T.ApiKey = config.global
+//     if
+//         checkAppsUpdate(url, api_key)
+//       console.log('check app')
+//       setTimeout(startAutoUpdate, 60000)
+//   }catch(err) {
+//     console.error(err)
+//     const error:T.error = {
+//       message:`server/controller/autoUpdate error executing funtion`,
+//       status: 500,
+//       log:'autoupdate failed'
+//     }
+//     console.log(error);
+//   }
+// }
 
-function checkAppsUpdate (url:string, api_key:string): void {
+export const startAutoUpdate =  (): void  => {
   let init:boolean = true;
   setInterval(async () => {
     try {
+      const {url, api_key}:T.ApiKey = config.global
       console.log('run checkAppUpdate', url, 'api_key:', api_key)
       let appList:T.App[] = []
       const data = await fetch(`${url}/api/v1/applications`, {
@@ -60,6 +56,8 @@ function checkAppsUpdate (url:string, api_key:string): void {
         }
       }
     }catch(err) {
+      const {url, api_key}:T.ApiKey = config.global
+      if (url === "undefined" || api_key === "undefined") console.log('configure AppConfig.json location server/config/AppConfig.json')
       console.log(err)
     }
   }, 6000)

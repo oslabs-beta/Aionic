@@ -1,7 +1,7 @@
 {
   "global": {
-    "api_key": "[PLACE ARGO TOKEN HERE]",
-    "url": "[PLACE ARGO URL HERE]"
+    "api_key": "[ARGOS TOKEN HERE]",
+    "url": "[ARGOS URL HERE]"
   },
-  "mongodb_uri": "mongodb+srv://timothy:yWaTjEODg6dtfMJN@cluster0.axjjrae.mongodb.net/?retryWrites=true&w=majority"
+  "mongodb_uri": "[MONGODB URI HERE]"
 }

@@ -66,6 +66,7 @@ export const addUserApiKey = async (req: Request, res: Response, next: NextFunct
       const {api_key, url, githubId} = req.body
       const user = await User.updateOne({githubId: githubId, 'argo_tokens.api_key': {$ne: api_key}}, {$push: {argo_tokens: {api_key: api_key, url:url}}});
       res.locals.response = 'successfully saved';
+      res.locals.api_key = {api_key: api_key, }
       return next()
     } catch(err) {
       console.log("this is the fucntion error ",err);
