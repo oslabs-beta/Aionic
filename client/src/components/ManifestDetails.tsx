@@ -1,66 +1,85 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router";
+import { Octokit } from "https://cdn.skypack.dev/@octokit/core";
+import { GitUserContext } from "./Protected";
+
 
 function ManifestDetails(props) {
   const [mani, setMani] = useState([]);
+  const gitUser = useContext(GitUserContext);
+  const { state } = useLocation();
+
+  //load each manifest for display
   useEffect(() => {
-    console.log(props.details)
-    // const manifests = JSON.parse(props.details[0].manifest);
-    console.log('child has these: ', props.details)
     const stateArr = [];
+    let counter = 0;
     // loop over passed in array to find correct manifests
     for (const obj of props.details) {
       if (obj.revision === props.sha) {
         const manifests = JSON.parse(obj.manifest)
-        console.log('hit if statement: ', obj)
         for (const manifest of manifests) {
+          if (counter >= manifests.length) {
+            setMani(stateArr);
+            return;
+          }
           stateArr.push(
             <div>
               <p>{manifest}</p>
             </div>
           )
+          counter++;
+          setMani(stateArr)
         }
       }
     }
-  
-    setMani(stateArr)
   }, [])
 
+  //back button
   const handleClick = e => {
     e.preventDefault();
     props.setDetail(false);
   }
+
+  const parseGitLink = (str: String): String[] => {
+    let temp = str.slice(19).split('/');
+   temp[1] = temp[1].slice(0, temp[1].length - 4);
+    return temp;
+  }
+
+  //push to git
+  const handleGit = (e) => {
+    e.preventDefault();
+    const [owner, repo] = parseGitLink(state.query.repo);
+    const octokit = new Octokit({
+      auth: 'AUTH HERE'
+    })
+    octokit.request('PATCH /repos/{owner}/{repo}/git/refs/heads/{ref}', {
+      owner: owner,
+      repo: repo,
+      ref: 'master',
+      sha: props.sha,
+      force: true
+    })
+      .then((data) => {
+        console.log('response from GitHub is: ', data)
+      })
+      .catch((err) => {
+        console.log('error occured: ', err)
+      })
+
+  }
+
+
   return (
     <div>
-      <button onClick={(e)=>handleClick(e)}>Back</button>
+      <button onClick={(e) => handleClick(e)}>Back</button>
       <h1>Manifest Details</h1>
       {mani}
-      <button>Push to git</button>
+      <button onClick={(e) => handleGit(e)}>Push to git</button>
     </div>
   )
 }
 
-export default ManifestDetails;
 
-// const stateArr: any = [];
-    // fetch('http://localhost:3000/api/manifests?' + new URLSearchParams({
-    //   uid: state.query.uid
-    // }))
-    //   .then((data: Response) => data.json())
-    //   .then((data: any) => {
-    //     console.log('manifests are: ', data);
-      
-    //     for (const manifest of data) {
-    //       const parsed = JSON.parse(manifest.manifest);
-    //       for (const parsedMan of parsed) {
-    //         stateArr.push(
-    //           <div>
-    //             <p>Github hash is: {manifest._id}</p>
-    //             <p>{parsedMan}</p>
-    //           </div>
-    //         )
-    //       }
-        
-    //     }
-    //     setMlList(stateArr)
-    //   })
+
+export default ManifestDetails;

@@ -1,29 +1,32 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import AppsList from './AppsList';
 import TokenInput from './TokenInput';
+import { GitUserContext } from './Protected';
 
 function AppsHub() {
   const [git, setGit] = useState(false);
   const [argo, setArgo] = useState(false);
   const [url, setUrl] = useState(false);
+  const gitUser = useContext(GitUserContext);
+
 
   //check if token and git auth is on serverside
   useEffect(() => {
     fetch('http://localhost:3000/api/userApiKey?' + new URLSearchParams({
-      user: 'aribengiyat'
+      user: gitUser
     }))
       .then((data: Response) => data.json())
       .then((data: []) => {
-        console.log(data);
         if (data[0] !== null) {
-          console.log('argotoken from endpoint is: ', data)
           setArgo(true);
         }
         else return;
       })
       .catch((err) => console.log(err));
 
-    fetch('http://localhost:3000/api/gitToken?user=aribengiyat')
+    fetch('http://localhost:3000/api/gitToken' + new URLSearchParams({
+      user: gitUser
+    }))
       .then((data: Response) => data.json())
       .then((data: boolean) => {
         if (data) setGit(true);
