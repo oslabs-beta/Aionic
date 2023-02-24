@@ -17,14 +17,15 @@ function AppsHub() {
     }))
       .then((data: Response) => data.json())
       .then((data: []) => {
-        if (data[0] !== null) {
+        console.log('got api key,', data)
+        if (Array.isArray(data.argoTokens)) {
           setArgo(true);
         }
         else return;
       })
       .catch((err) => console.log(err));
 
-    fetch('http://localhost:3000/api/gitToken' + new URLSearchParams({
+    fetch('http://localhost:3000/api/gitToken?' + new URLSearchParams({
       user: gitUser
     }))
       .then((data: Response) => data.json())

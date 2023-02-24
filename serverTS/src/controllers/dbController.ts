@@ -37,6 +37,7 @@ export const addNode = async (req: Request | undefined, res: Response | any, nex
       status:500,
       log:'data base error'
     }
+    console.log(err)
     return next(error)
   }
 }

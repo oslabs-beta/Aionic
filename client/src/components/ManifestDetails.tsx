@@ -6,6 +6,7 @@ import { GitUserContext } from "./Protected";
 
 function ManifestDetails(props) {
   const [mani, setMani] = useState([]);
+  const [branch, setBranch] = useState('')
   const gitUser = useContext(GitUserContext);
   const { state } = useLocation();
 
@@ -56,7 +57,7 @@ function ManifestDetails(props) {
     octokit.request('PATCH /repos/{owner}/{repo}/git/refs/heads/{ref}', {
       owner: owner,
       repo: repo,
-      ref: 'master',
+      ref: branch,
       sha: props.sha,
       force: true
     })
@@ -75,6 +76,7 @@ function ManifestDetails(props) {
       <button onClick={(e) => handleClick(e)}>Back</button>
       <h1>Manifest Details</h1>
       {mani}
+      <input type='text' onChange={(e)=>setBranch(e.target.value)} ></input>
       <button onClick={(e) => handleGit(e)}>Push to git</button>
     </div>
   )

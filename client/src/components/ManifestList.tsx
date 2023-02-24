@@ -20,11 +20,13 @@ function ManifestList() {
 
   useEffect(() => {
     const stateArr: any = [];
+    console.log('uid is: ', state.query.uid )
     fetch('http://localhost:3000/api/manifests?' + new URLSearchParams({
       uid: state.query.uid
     }))
       .then((data: Response) => data.json())
       .then((data: any) => {
+        console.log('data for this app is: ', data)
         for (const el of data) {
           stateArr.push(
             <div>

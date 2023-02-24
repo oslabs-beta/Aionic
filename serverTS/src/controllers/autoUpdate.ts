@@ -121,16 +121,18 @@ class checkManifestUpdate {
               Authorization: `Bearer ${this.apikey}`
             }});
           const data = await response.json()
-          console.log(data)
+          console.log("before error", data)
           const {manifests, revision, sourceType} = data
           if (this.revision !== revision) {
+            console.log(manifests)
+            const mani = await JSON.stringify(manifests)
             const newNode:T.Node = await addNode(undefined, {
               locals:{
                 uid: this.app.uid, 
-                manifest: JSON.stringify(manifests),
+                manifest: mani,
                 revision: revision,
                 sourceType: sourceType
-              }}) as T.Node;
+              }},(err)=>{console.log(err)}) as T.Node;
             this.revision = newNode.revision
           }
         }catch(err) {
