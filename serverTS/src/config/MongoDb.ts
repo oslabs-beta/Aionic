@@ -15,7 +15,11 @@ mongoose.connect(uri, {
 const AppSchema = new Schema<T.App>({
   uid: {type: String, required: true, unique: true},
   name: {type: String, required: true},
-  repoURL: {type: String, required: true},
+  source: {type: {
+    repoURL: String,
+    path:String,
+    targetRevision: String
+  }, required: true},
   date: {type: Date, default: Date.now()},
   head: {type: String, default: null},
   tail: {type: String, default: null}

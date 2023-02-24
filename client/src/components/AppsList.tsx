@@ -1,5 +1,7 @@
 import { useNavigate } from "react-router";
-import { MouseEvent, useEffect, useRef, useState } from "react";
+import { MouseEvent, useContext, useEffect, useRef, useState } from "react";
+import { GitUserContext } from "./Protected";
+
 
 function AppsList() {
 
@@ -16,16 +18,14 @@ function AppsList() {
   
   const [appList, setAppList] = useState({});
   const [apps, setApps] = useState([]);
-  const [gitUser, setGitUser] = useState('');
   const appListRef = useRef({})
   let navigate = useNavigate();
+  const gitUser = useContext(GitUserContext);
  
   const handleClick = (e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => {
       e.preventDefault();
-      console.log(appList.curr)
       let appName = e.target.parentNode.childNodes[0].innerText;
-      // console.log('applistref on button click is: ', appListRef);
-      navigate('/home/manifests', { state: { query: appListRef.curr[appName] } });
+      navigate('/home/manifests', { state: { query: appListRef.curr[appName]} });
   }
 
   //grab the app lists and display
@@ -34,7 +34,7 @@ function AppsList() {
 
       //add username here not in parent
     fetch('http://localhost:3000/api/apps?' + new URLSearchParams({
-      user: 'aribengiyat'
+      user: gitUser
     }))
       .then((data: Response) => data.json())
       .then((data) => {
@@ -42,6 +42,7 @@ function AppsList() {
         const stateObj: Data  = {};
         for (const app of data) {
           stateObj[app.name] = app;
+          stateObj[app.name].repo = app.source.repoURL;
           appsArr.push(
             <div>
               <h2>{`${app.name}`}</h2>
@@ -52,12 +53,11 @@ function AppsList() {
         setAppList(stateObj);
         setApps(appsArr);
       })
+    .catch((err)=>console.log('error occured fetching apps: ',))
   }, [])
 
   useEffect(() => {
-    // console.log('appList updated is: ', appList);
     appListRef.curr = appList;
-    // console.log('applistref is: ', appListRef);
   },[appList])
 
   

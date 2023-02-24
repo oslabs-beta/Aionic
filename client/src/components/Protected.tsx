@@ -1,6 +1,8 @@
 import { Outlet } from "react-router";
-import { useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import App from "../App";
+
+export const GitUserContext = createContext('noUser');
 
 function Protected() {
   const [isLoggedIn, setIsLoggedIn] = useState();
@@ -16,7 +18,6 @@ function Protected() {
     })
       .then((data) => data.json())
       .then((data) => {
-        console.log(data);
         setIsLoggedIn(false);
         setUsername('');
       });
@@ -46,13 +47,17 @@ function Protected() {
     return (
       <div>
         <button onClick={(e) => handleClick(e)}>Logout</button>
-        <Outlet />
+        <GitUserContext.Provider value={username}>
+          <Outlet />
+        </GitUserContext.Provider>
       </div>
-    )
+    );
   } else {
     return (
-      <App/>
-    )
+      <GitUserContext.Provider value={username}>
+        <App />
+      </GitUserContext.Provider>
+    );
   }
 }
 

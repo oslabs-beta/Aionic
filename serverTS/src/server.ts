@@ -16,7 +16,7 @@ import * as types from './types'
 startAutoUpdate()
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({credentials:true, origin: 'http://localhost:5173'}));
+app.use(cors({ credentials: true, origin: 'http://localhost:5173' }));
 
 app.use(cookieSession({
   name: "session",
@@ -38,7 +38,7 @@ app.get('/auth/github',
 );
 
 //req.logout required callback function so added one err => console.log(err)
-app.get('./logout', (req: Request,res: Response)=> {
+app.get('/logout', (req: Request,res: Response)=> {
   req.session = null;
   req.logout((err)=> {console.log(err)});
   return res.json({logout: true });

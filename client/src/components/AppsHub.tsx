@@ -1,45 +1,43 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import AppsList from './AppsList';
 import TokenInput from './TokenInput';
+import { GitUserContext } from './Protected';
 
 function AppsHub() {
   const [git, setGit] = useState(false);
   const [argo, setArgo] = useState(false);
   const [url, setUrl] = useState(false);
+  const gitUser = useContext(GitUserContext);
+
 
   //check if token and git auth is on serverside
   useEffect(() => {
-    fetch('http://localhost:3000/api/argoToken?' + new URLSearchParams({
-      user: 'aribengiyat'
+    fetch('http://localhost:3000/api/userApiKey?' + new URLSearchParams({
+      user: gitUser
     }))
       .then((data: Response) => data.json())
       .then((data: []) => {
-        console.log(data);
-        if (data[0].api_key !== null) {
-          console.log('argotoken from endpoint is: ', data)
+        console.log('got api key,', data)
+        if (Array.isArray(data.argoTokens)) {
           setArgo(true);
         }
         else return;
       })
       .catch((err) => console.log(err));
 
-    fetch('http://localhost:3000/api/gitToken')
+    fetch('http://localhost:3000/api/gitToken?' + new URLSearchParams({
+      user: gitUser
+    }))
       .then((data: Response) => data.json())
       .then((data: boolean) => {
-        if (data) setGit(true);
+        console.log('git data is: ', data)
+        if (data.githubToken !== 'no token') setGit(true);
       })
       .catch((err) => console.log(err));
 
-    //create fetch for URL when there is an endpoint
-    // fetch('http://localhost:3000/api/[URL ENDPOINT HERE]')
-    //   .then((data: Response) => data.json())
-    //   .then((data: boolean) => {
-    //     if (data) setUrl(true);
-    //   })
-    //   .catch((err) => console.log(err));
   }, []);
 
-  if (argo) {
+  if (argo && git) {
     return (
       <div>
        <AppsList/>

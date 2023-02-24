@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { GitUserContext } from './Protected';
 
 interface tokens {
   argo: boolean;
@@ -17,15 +18,19 @@ function TokenInput(props: props) {
   const [argoTokenValue, setArgoTokenValue] = useState('');
   const [argoUrlValue, setArgoUrlValue] = useState('');
   const [gitTokenValue, setGitTokenValue] = useState('');
+  const gitUser = useContext(GitUserContext);
 
   const handleArgoSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   
 
-    const req = { api_key: argoTokenValue, url: argoUrlValue };
-    console.log(req);
+    const req = {
+      api_key: argoTokenValue,
+      url: argoUrlValue,
+      githubId: gitUser,
+    };
 
-    fetch('http://localhost:3000/db/addToken', {
+    fetch('http://localhost:3000/api/userApiKey', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -37,7 +42,6 @@ function TokenInput(props: props) {
         if (data == 'success') {
           props.setArgo(true); //need to check what data we will get back
           props.setUrl(true);
-          console.log('changing argo state');
         }
       });
   };
@@ -46,10 +50,10 @@ function TokenInput(props: props) {
   const handleGitSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const req = { gitToken: gitTokenValue };
+    const req = { gitToken: gitTokenValue, githubId: gitUser };
 
     fetch('http://localhost:3000/api/gitToken', {
-      method: 'GET',
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -57,9 +61,9 @@ function TokenInput(props: props) {
     })
       .then((data: Response) => data.json())
       .then((data) => {
+        console.log('set git data: ', data)
         if (data) {
           props.setGit(true);
-          console.log('changing git state');
         }
       });
   };

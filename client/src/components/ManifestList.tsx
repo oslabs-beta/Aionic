@@ -20,16 +20,16 @@ function ManifestList() {
 
   useEffect(() => {
     const stateArr: any = [];
+    console.log('uid is: ', state.query.uid )
     fetch('http://localhost:3000/api/manifests?' + new URLSearchParams({
       uid: state.query.uid
     }))
       .then((data: Response) => data.json())
       .then((data: any) => {
-        console.log('manifests are: ', data);
+        console.log('data for this app is: ', data)
         for (const el of data) {
           stateArr.push(
             <div>
-              <button onClick={(e)=>handleBack(e)}>Back to all apps</button>
               <h2>These are the manifests for git sha: <span>{el.revision}</span></h2>
               <button onClick={(e) => handleClick(e)}>Click to see all manifests from that date</button>
             </div>
@@ -45,8 +45,7 @@ function ManifestList() {
 
   const handleClick = e => {
     e.preventDefault();
-    const gitSha = e.target.parentNode.childNodes[1].childNodes[1].innerText
-    console.log(mlList)
+    const gitSha = e.target.parentNode.childNodes[0].childNodes[1].innerText
     setDetail(true);
     setSha(gitSha);
   }
@@ -57,6 +56,7 @@ function ManifestList() {
   if (!detail) {
     return (
       <div>
+        <button onClick={(e) => handleBack(e)}>Back to all apps</button>
         {mlList}
       </div>
     )
