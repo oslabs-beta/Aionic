@@ -7,11 +7,13 @@ import { GitUserContext } from "./Protected";
 function ManifestDetails(props) {
   const [mani, setMani] = useState([]);
   const [branch, setBranch] = useState('')
+  const [token, setToken] = useState('');
   const gitUser = useContext(GitUserContext);
   const { state } = useLocation();
 
   //load each manifest for display
   useEffect(() => {
+    getToken();
     const stateArr = [];
     let counter = 0;
     // loop over passed in array to find correct manifests
@@ -35,12 +37,29 @@ function ManifestDetails(props) {
     }
   }, [])
 
+  //get github token from db
+  const getToken = () => {
+    console.log('getting token, gitUser is: ', gitUser)
+    fetch('http://localhost:3000/api/gitToken?' + new URLSearchParams({
+      user: gitUser
+    }))
+      .then((data) => data.json())
+      .then((data) => {
+        console.log('Data recieved from db for token, ', data)
+        if (data.githubToken) {
+          setToken(data.githubToken)
+        } else console.log('token does not exist in DB!');
+    })
+  }
+
+
   //back button
   const handleClick = e => {
     e.preventDefault();
     props.setDetail(false);
   }
 
+  //helper function to get repo owner and name
   const parseGitLink = (str: String): String[] => {
     let temp = str.slice(19).split('/');
    temp[1] = temp[1].slice(0, temp[1].length - 4);
@@ -51,8 +70,9 @@ function ManifestDetails(props) {
   const handleGit = (e) => {
     e.preventDefault();
     const [owner, repo] = parseGitLink(state.query.repo);
+    console.log(token)
     const octokit = new Octokit({
-      auth: 'AUTH HERE'
+      auth: token
     })
     octokit.request('PATCH /repos/{owner}/{repo}/git/refs/heads/{ref}', {
       owner: owner,
@@ -67,7 +87,11 @@ function ManifestDetails(props) {
       .catch((err) => {
         console.log('error occured: ', err)
       })
+  }
 
+  //get more manifests
+  const moreManifests = () => {
+    fetch('http://')
   }
 
 
@@ -76,6 +100,7 @@ function ManifestDetails(props) {
       <button onClick={(e) => handleClick(e)}>Back</button>
       <h1>Manifest Details</h1>
       {mani}
+      <h3>Please input the exact branch name to push to!</h3>
       <input type='text' onChange={(e)=>setBranch(e.target.value)} ></input>
       <button onClick={(e) => handleGit(e)}>Push to git</button>
     </div>

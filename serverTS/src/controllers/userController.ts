@@ -1,6 +1,7 @@
 import {User} from '../config/MongoDb'
 import { Request, Response, NextFunction } from 'express';
 import * as T from "../types"
+import { HydratedDocument } from 'mongoose';
 //User Git Token************************************************************************************************
 
 export const checkUserGitToken = async (req:Request, res:Response, next:NextFunction): Promise<any> => {
@@ -17,10 +18,13 @@ export const checkUserGitToken = async (req:Request, res:Response, next:NextFunc
 }
 
 export const patchUserGitToken = async (req: Request, res: Response, next: NextFunction): Promise<any> => {
-    try {
-      const {githubId, githubToken} = req.body
-      await User.updateOne({githubId: githubId}, {githubToken: githubToken});
-      res.locals.response = 'successfully saved';
+  try {
+      console.log(req.body)
+      const {githubId, gitToken} = req.body
+    const user:HydratedDocument<T.User> = await User.findOneAndUpdate({ githubId: githubId }, { githubToken: gitToken }, {
+      new: true
+    });
+      res.locals.response = user;
       return next()
     }catch(err) {
       console.log("this is the fucntion error ",err);

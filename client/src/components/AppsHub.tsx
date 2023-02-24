@@ -30,13 +30,14 @@ function AppsHub() {
     }))
       .then((data: Response) => data.json())
       .then((data: boolean) => {
-        if (data) setGit(true);
+        console.log('git data is: ', data)
+        if (data.githubToken !== 'no token') setGit(true);
       })
       .catch((err) => console.log(err));
 
   }, []);
 
-  if (argo) {
+  if (argo && git) {
     return (
       <div>
        <AppsList/>

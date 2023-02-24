@@ -50,7 +50,7 @@ function TokenInput(props: props) {
   const handleGitSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const req = { gitToken: gitTokenValue };
+    const req = { gitToken: gitTokenValue, githubId: gitUser };
 
     fetch('http://localhost:3000/api/gitToken', {
       method: 'POST',
@@ -61,6 +61,7 @@ function TokenInput(props: props) {
     })
       .then((data: Response) => data.json())
       .then((data) => {
+        console.log('set git data: ', data)
         if (data) {
           props.setGit(true);
         }
