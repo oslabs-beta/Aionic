@@ -1,13 +1,12 @@
 import cookieSession from 'cookie-session'
 import cookieParser from 'cookie-parser'
 import passport from 'passport'
-import express, {Request, Response, NextFunction, RequestHandler} from 'express'
+import express, {Request, Response, NextFunction} from 'express'
 import cors from 'cors'
 const app = express();
 const PORT = 3000;
 import './passport/passport'
 
-import * as arogController from './controllers/argoController'
 import * as authController from './controllers/authController'
 import {startAutoUpdate} from './controllers/autoUpdate'
 import apiRouter from './routes/apiRouter'

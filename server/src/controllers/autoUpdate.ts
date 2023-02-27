@@ -1,34 +1,13 @@
 import { Node, App } from '../config/MongoDb';
 import {addNode} from './dbController';
 import * as T from '../types'
-import { ApiKey } from '../config/MongoDb';
 import { config } from '../keys';
-
-// export const  = async () => {
-//   try {
-//     console.log('start auto update')
-//     const {url, api_key}: T.ApiKey = config.global
-//     if
-//         checkAppsUpdate(url, api_key)
-//       console.log('check app')
-//       setTimeout(startAutoUpdate, 60000)
-//   }catch(err) {
-//     console.error(err)
-//     const error:T.error = {
-//       message:`server/controller/autoUpdate error executing funtion`,
-//       status: 500,
-//       log:'autoupdate failed'
-//     }
-//     console.log(error);
-//   }
-// }
 
 export const startAutoUpdate =  (): void  => {
   let init:boolean = true;
   setInterval(async () => {
     try {
       const {url, api_key}:T.ApiKey = config.global
-      console.log('run checkAppUpdate', url, 'api_key:', api_key)
       let appList:T.App[] = []
       const data = await fetch(`${url}/api/v1/applications`, {
         method:"GET",

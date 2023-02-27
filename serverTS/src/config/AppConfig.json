@@ -1,7 +1,0 @@
-{
-  "global": {
-    "url": "https://localhost:8080",
-    "api_key": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhcmdvY2QiLCJzdWIiOiJhcmk6YXBpS2V5IiwibmJmIjoxNjc2NDk0OTc0LCJpYXQiOjE2NzY0OTQ5NzQsImp0aSI6Ijg1ODc2MTFmLWM4MGYtNDYxZi1iMTY2LTE2NGNmZjJlY2JiNSJ9.9jv5QnMw9-MsHGipRev2iXdZxSWBcRSbxgFPHipv-hA"
-  },
-  "mongodb_uri": "mongodb://127.0.0.1:27017"
-}

@@ -8,7 +8,7 @@ dotenv.config({path: path.resolve(__dirname,'../.env')})
 //     path.resolve(__dirname, './config/AppConfig.json')
 //   )
 // )
-const data:Buffer = fs.readFileSync(path.resolve(__dirname, './config/AppConfig.json'));
+const data:Buffer = fs.readFileSync(path.resolve(__dirname, '../AppConfig.json'));
 const parsedData:any = JSON.parse(data.toString());
 
 

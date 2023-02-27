@@ -1,0 +1,26 @@
+version: '3'
+services:
+  web:
+    image: aionicos/client-dev
+    volumes:
+      - /app/node_modules
+      - ./client:/app
+    # ports:
+    #   - '5173:5173'
+    command: npm run dev
+  api: 
+    image: aionicos/api-dev
+    volumes:
+     - /app/node_modules
+     - ./server/dist:/app/dist
+     - ./server/AppConfig.json:/app/App.Config.json
+    # ports:
+    #   - '3000:3000'
+  nginx:
+    depends_on:
+      - web
+      - api
+    image: aionicos/nginx
+    ports:
+      - "3000:80"
+    

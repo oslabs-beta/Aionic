@@ -5,7 +5,9 @@
   "main": "src/server.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "NODE_TLS_REJECT_UNAUTHORIZED='0' nodemon src/server.ts"
+    "build": "tsc",
+    "dev": "NODE_TLS_REJECT_UNAUTHORIZED='0' nodemon src/server",
+    "start": "NODE_TLS_REJECT_UNAUTHORIZED='0' node dist/server"
   },
   "keywords": [],
   "author": "",

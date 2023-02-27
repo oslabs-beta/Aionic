@@ -1,7 +1,6 @@
 import React, { Children } from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
-import Home from './components/Home'
 import Protected from './components/Protected'
 import {
   createBrowserRouter,
