@@ -13,11 +13,16 @@ function App() {
 
   const navigate = useNavigate();
 
-    return (
-      <div className=''>
-        <a href='http://localhost:3000/auth/github' className='text-lg text-black font-semibold underline'>Login Using GitHub</a>
-      </div>
-    );
+  return (
+    <div className='flex h-screen items-center justify-center'>
+      <a
+        href='http://localhost:3000/auth/github'
+        className='text-lg text-black font-semibold underline items-center justify-center'
+      >
+        Login Using GitHub
+      </a>
+    </div>
+  );
 }
 
 export default App;
