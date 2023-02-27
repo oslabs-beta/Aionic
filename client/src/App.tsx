@@ -14,8 +14,8 @@ function App() {
   const navigate = useNavigate();
 
     return (
-      <div>
-        <a href='http://localhost:3000/auth/github'>Login Using GitHub</a>
+      <div className=''>
+        <a href='http://localhost:3000/auth/github' className='text-lg text-black font-semibold underline'>Login Using GitHub</a>
       </div>
     );
 }
