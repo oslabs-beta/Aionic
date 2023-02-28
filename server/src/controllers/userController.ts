@@ -43,7 +43,6 @@ export const patchUserGitToken = async (req: Request, res: Response, next: NextF
 
 export const getUserToken = async (req: Request, res: Response, next: NextFunction): Promise<any> => {
     try {
-      console.log("getUserToken")
       const { user } = req.query;
       let data: T.User = await User.findOne({ githubId: user });
       if (data.argo_tokens.length < 1) {
@@ -75,9 +74,8 @@ export const addUserApiKey = async (req: Request, res: Response, next: NextFunct
       res.locals.api_key = {api_key: api_key, }
       return next()
     } catch(err) {
-      console.log("this is the fucntion error ",err);
       const error = {
-        log: `server/middlewarte/dbcontroller error`,
+        log: `server/middlewarte/dbcontroller error ${typeof err === "object" ? JSON.stringify(err) : err}`,
         status: 500,
         message:'server side error check serverlog'
       };

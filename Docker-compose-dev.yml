@@ -13,12 +13,12 @@ services:
       context: ./server
       dockerfile: Dockerfile.dev
     environment:
-      - GITHUB_ID=2c6ec986c48095990a1c
-      - GITHUB_SECRET=8c5d43ec38179de6264f661317b7c0f56a196050
-      - url=https://host.docker.internal:1995
-      - api_key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhcmdvY2QiLCJzdWIiOiJ0aW1vdGh5OmFwaUtleSIsIm5iZiI6MTY3NzYwMTE1OCwiaWF0IjoxNjc3NjAxMTU4LCJqdGkiOiI2NTRlZTZmOS05ODcwLTQzYzctYjE2Zi1mYmRiZDA5ODgyNmIifQ.hWWJw9x2FmXrNrbvHedWQIC2FlCoaKlMaUZW60bl_N4
-      - mongodb_uri=mongodb+srv://timothy:GqaPQRkAs298yaY1@cluster0.axjjrae.mongodb.net/?retryWrites=true&w=majority
-      - PORT=3000
+      - GITHUB_ID=
+      - GITHUB_SECRET=
+      - url=
+      - api_key=
+      - mongodb_uri=
+      - PORT=
     command: npm run dev
   nginx:
     depends_on:

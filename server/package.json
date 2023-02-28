@@ -7,7 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
     "dev": "NODE_TLS_REJECT_UNAUTHORIZED='0' nodemon src/server",
-    "start": "NODE_TLS_REJECT_UNAUTHORIZED='0' node dist/server"
+    "start": "NODE_TLS_REJECT_UNAUTHORIZED='0' node dist/server",
+    "docker-build-dev": "docker-compose -f ../Docker-compose-dev.yml build",
+    "docker-start": "docker-compose -f ../Docker-compose-dev.yml up"
   },
   "keywords": [],
   "author": "",
