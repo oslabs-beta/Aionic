@@ -46,6 +46,7 @@ router.get('/checkUser', authController.isLoggedIn, (req: Request, res: Response
 
 /**************** grab user apps route ***************/
 router.get('/apps', userController.getUserToken, argoController.getAllUserApps, (req: Request, res: Response) => {
+  console.log(res.locals.apps)
   return res.json(res.locals.apps)
 })
 

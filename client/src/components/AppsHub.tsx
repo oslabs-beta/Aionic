@@ -12,7 +12,7 @@ function AppsHub() {
 
   //check if token and git auth is on serverside
   useEffect(() => {
-    fetch('server/api/userApiKey?' + new URLSearchParams({
+    fetch('/server/api/userApiKey?' + new URLSearchParams({
       user: gitUser
     }))
       .then((data: Response) => data.json())
@@ -25,7 +25,7 @@ function AppsHub() {
       })
       .catch((err) => console.log(err));
 
-    fetch('server/api/gitToken?' + new URLSearchParams({
+    fetch('/server/api/gitToken?' + new URLSearchParams({
       user: gitUser
     }))
       .then((data: Response) => data.json())

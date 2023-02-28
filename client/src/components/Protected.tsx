@@ -26,7 +26,7 @@ function Protected() {
 
   useEffect(() => {
     //fetch the api
-    fetch('server/api/checkUser', {
+    fetch('/server/api/checkUser', {
       credentials: 'include',
       headers: {
         'Content-Type': 'application/json'

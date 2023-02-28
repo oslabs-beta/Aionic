@@ -100,7 +100,7 @@ class checkManifestUpdate {
               Authorization: `Bearer ${this.apikey}`
             }});
           const data = await response.json()
-          console.log("before error", data)
+          // console.log("before error", data)
           const {manifests, revision, sourceType} = data
           if (this.revision !== revision) {
             console.log(manifests)

@@ -4,7 +4,7 @@ import passport from 'passport'
 import express, {Request, Response, NextFunction} from 'express'
 import cors from 'cors'
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 import './passport/passport'
 
 import * as authController from './controllers/authController'
@@ -69,6 +69,5 @@ app.use((err:types.error | any, req: Request, res: Response, next:NextFunction) 
 
 
 app.listen(PORT, ()=>{
-  console.log(`${PORT} listening ....`)
+  console.log(`listening ${PORT}...`)
 })
-

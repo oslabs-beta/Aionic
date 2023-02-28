@@ -6,6 +6,7 @@ import * as T from '../types';
 //grabs all apps user has access to
 export const getAllUserApps = async (req: Request, res: Response, next: NextFunction): Promise<any> => {
     try {
+      console.log("getAllUserApps")
       let appList: T.AppList[] = [];
       for (let i = 0; i < res.locals.argoTokens.length; i++) {
         let data: any = await fetch(`${res.locals.argoTokens[i].url}/api/v1/applications`, {
@@ -30,6 +31,7 @@ export const getAllUserApps = async (req: Request, res: Response, next: NextFunc
       return next();
     }
     catch (err) {
+      console.log(err)
       return next({
         log: 'Error while invoking middleware: getAllUserApps',
         status: 400,

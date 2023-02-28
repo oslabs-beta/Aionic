@@ -43,6 +43,7 @@ export const patchUserGitToken = async (req: Request, res: Response, next: NextF
 
 export const getUserToken = async (req: Request, res: Response, next: NextFunction): Promise<any> => {
     try {
+      console.log("getUserToken")
       const { user } = req.query;
       let data: T.User = await User.findOne({ githubId: user });
       if (data.argo_tokens.length < 1) {
@@ -57,6 +58,7 @@ export const getUserToken = async (req: Request, res: Response, next: NextFuncti
       }
     }
     catch (err) {
+      console.log(err)
       return next({
         log: 'Error while invoking middleware: getUserToken',
         status: 400,

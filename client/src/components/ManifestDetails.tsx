@@ -52,7 +52,7 @@ function ManifestDetails(props) {
   //get github token from db
   const getToken = () => {
     console.log('getting token, gitUser is: ', gitUser)
-    fetch('server/api/gitToken?' + new URLSearchParams({
+    fetch('/server/api/gitToken?' + new URLSearchParams({
       user: gitUser
     }))
       .then((data) => data.json())
