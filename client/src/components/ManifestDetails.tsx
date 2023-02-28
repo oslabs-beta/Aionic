@@ -19,15 +19,22 @@ function ManifestDetails(props) {
 
   //load each manifest for display
   useEffect(() => {
+    let counter = 0;
     getToken();
     const stateArr = [];
     // loop over passed in array to find correct manifests
     for (const obj of props.details) {
+      console.log('props.details is: ', props.details);
       if (obj.revision === props.sha) {
+        console.log('obj is: ', obj)
         const manifests = JSON.parse(obj.manifest)
         for (const manifest of manifests) {
+          if (counter >= manifests.length) {
+            setMani(stateArr);
+            return;
+          }
           const high = hljs.highlight(yaml2.dump(JSON.parse(manifest)), { language: 'yaml' }).value
-          console.log('typeof manifest is: ', typeof manifest, JSON.parse(manifest), 'of manifests is: ', typeof manifests)
+          console.log('typeof manifest is: ', typeof manifest, JSON.parse(manifest), 'of manifests is: ', typeof manifests, high)
           stateArr.push(
             <div className="bg-gray-200 max-w-5xl">
               <pre className="hljs">
@@ -35,11 +42,10 @@ function ManifestDetails(props) {
               </pre>
             </div>
           )
-          console.log(stateArr)
+          console.log('statearr is: ', stateArr)
         }
       }
     }
-    setMani(stateArr);
   }, []);
 
 
