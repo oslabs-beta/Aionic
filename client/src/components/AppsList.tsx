@@ -45,7 +45,7 @@ function AppsList() {
           stateObj[app.name].repo = app.source.repoURL;
           appsArr.push(
             <div>
-              <h2>{`${app.name}`}</h2>
+              <h2 className="text-center text-3xl ">{`${app.name}`}</h2>
               <button onClick={(e) => handleClick(e)}>Click for details</button>
             </div>
           )
@@ -63,8 +63,7 @@ function AppsList() {
   
   return (
     <div>
-      <h1>This is AppsList</h1>
-      <section className="container">
+      <section className="flex gap-16">
         {apps}
       </section>
     </div>

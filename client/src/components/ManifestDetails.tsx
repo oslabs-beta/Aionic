@@ -2,6 +2,12 @@ import { useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router";
 import { Octokit } from "https://cdn.skypack.dev/@octokit/core";
 import { GitUserContext } from "./Protected";
+import hljs from 'highlight.js/lib/core';
+import 'highlight.js/styles/default.css';
+import yaml from 'highlight.js/lib/languages/json';
+hljs.registerLanguage('yaml', yaml);
+import yaml2 from 'js-yaml'
+
 
 
 function ManifestDetails(props) {
@@ -13,29 +19,35 @@ function ManifestDetails(props) {
 
   //load each manifest for display
   useEffect(() => {
+    let counter = 0;
     getToken();
     const stateArr = [];
-    let counter = 0;
     // loop over passed in array to find correct manifests
     for (const obj of props.details) {
+      console.log('props.details is: ', props.details);
       if (obj.revision === props.sha) {
+        console.log('obj is: ', obj)
         const manifests = JSON.parse(obj.manifest)
         for (const manifest of manifests) {
           if (counter >= manifests.length) {
             setMani(stateArr);
             return;
           }
+          const high = hljs.highlight(yaml2.dump(JSON.parse(manifest)), { language: 'yaml' }).value
+          console.log('typeof manifest is: ', typeof manifest, JSON.parse(manifest), 'of manifests is: ', typeof manifests, high)
           stateArr.push(
-            <div>
-              <p>{manifest}</p>
+            <div className="bg-gray-200 max-w-5xl">
+              <pre className="hljs">
+                <code dangerouslySetInnerHTML={{ __html: high }}></code>
+              </pre>
             </div>
           )
-          counter++;
-          setMani(stateArr)
+          console.log('statearr is: ', stateArr)
         }
       }
     }
-  }, [])
+  }, []);
+
 
   //get github token from db
   const getToken = () => {
@@ -98,8 +110,8 @@ function ManifestDetails(props) {
   return (
     <div>
       <button onClick={(e) => handleClick(e)}>Back</button>
-      <h1>Manifest Details</h1>
       {mani}
+
       <h3>Please input the exact branch name to push to!</h3>
       <input type='text' onChange={(e)=>setBranch(e.target.value)} ></input>
       <button onClick={(e) => handleGit(e)}>Push to git</button>
