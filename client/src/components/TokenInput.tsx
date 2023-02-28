@@ -104,7 +104,7 @@ function TokenInput(props: props) {
       <div className='border flex flex-col space-y-3 bg-white drop-shadow rounded-md w-9/12 p-10'>
         <div className='flex flex-row items-center mb-2'>
           <img className='h-6 mr-2' src={gitLogo} />
-          <h1 className='text-3xl mb-2 text-gray-900'>Github Token Input</h1>
+          <h1 className='text-3xl text-gray-900'>Github Input</h1>
         </div>
 
         <form
