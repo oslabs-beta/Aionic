@@ -10,7 +10,7 @@ function Protected() {
 
   const handleClick = (e) => {
     e.preventDefault();
-    fetch('http://localhost:3000/logout', {
+    fetch('api/logout', {
       credentials: 'include',
       headers: {
         'Content-Type': 'application/json'
@@ -26,7 +26,7 @@ function Protected() {
 
   useEffect(() => {
     //fetch the api
-    fetch('http://localhost:3000/api/checkUser', {
+    fetch('server/api/checkUser', {
       credentials: 'include',
       headers: {
         'Content-Type': 'application/json'

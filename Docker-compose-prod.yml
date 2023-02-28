@@ -5,8 +5,6 @@ services:
     volumes:
       - /app/node_modules
       - ./client:/app
-    # ports:
-    #   - '5173:5173'
     command: npm run dev
   api: 
     image: aionicos/api-dev
@@ -14,8 +12,6 @@ services:
      - /app/node_modules
      - ./server/dist:/app/dist
      - ./server/AppConfig.json:/app/App.Config.json
-    # ports:
-    #   - '3000:3000'
   nginx:
     depends_on:
       - web

@@ -21,7 +21,7 @@ function ManifestList() {
   useEffect(() => {
     const stateArr: any = [];
     console.log('uid is: ', state.query.uid )
-    fetch('http://localhost:3000/api/manifests?' + new URLSearchParams({
+    fetch('server/api/manifests?' + new URLSearchParams({
       uid: state.query.uid
     }))
       .then((data: Response) => data.json())

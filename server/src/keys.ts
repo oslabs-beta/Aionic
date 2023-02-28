@@ -1,29 +1,20 @@
-import path from 'path'
-import * as dotenv from 'dotenv'
-import fs from 'fs'
-dotenv.config({path: path.resolve(__dirname,'../.env')})
-
-// const jsonData:any = JSON.parse(
-//   await fs.readFile(
-//     path.resolve(__dirname, './config/AppConfig.json')
-//   )
-// )
-const data:Buffer = fs.readFileSync(path.resolve(__dirname, '../AppConfig.json'));
-const parsedData:any = JSON.parse(data.toString());
-
-
-export const config = parsedData;
+interface config {
+  global: {url:string, api_key: string}
+  mongodb_uri: string
+}
+export const config:config = {global: {
+  url:process.env.url,
+  api_key: process.env.api_key
+  },
+  mongodb_uri: process.env.mongodb_uri
+}
 
 interface env {
-  MongoUser:string,
-  MongoPassword: string,
   GithubId: string,
   GithubSecret: string
 }
 
 const keys:env = {
-  MongoUser: process.env.DBUSER,
-  MongoPassword: process.env.DBPASSWORD,
   GithubId: process.env.GITHUB_ID,
   GithubSecret: process.env.GITHUB_SECRET
 }

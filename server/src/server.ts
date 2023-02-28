@@ -15,7 +15,7 @@ import * as types from './types'
 startAutoUpdate()
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({ credentials: true, origin: 'http://localhost:5173' }));
+app.use(cors({ credentials: true, origin: '/' }));
 
 app.use(cookieSession({
   name: "session",
@@ -28,7 +28,7 @@ app.use(passport.session());
 app.get('/auth/github/callback', 
   passport.authenticate('github', {failureRedirect: '/'}),
   (req: Request, res: Response)=> {
-    return res.redirect('http://localhost:5173/home')
+    return res.redirect('/home')
   }
 );
 

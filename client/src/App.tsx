@@ -13,7 +13,7 @@ function App() {
 
     return (
       <div>
-        <a href='http://localhost:3000/auth/github'>Login Using GitHub</a>
+        <a href='server/auth/github'>Login Using GitHub</a>
       </div>
     );
 }

@@ -33,7 +33,7 @@ function AppsList() {
     const appsArr: any = [];
 
       //add username here not in parent
-    fetch('http://localhost:3000/api/apps?' + new URLSearchParams({
+    fetch('server/api/apps?' + new URLSearchParams({
       user: gitUser
     }))
       .then((data: Response) => data.json())

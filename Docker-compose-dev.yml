@@ -1,4 +1,4 @@
-version: '3'
+version: '3.9'
 services:
   web:
     build:
@@ -7,19 +7,17 @@ services:
     volumes:
       - /app/node_modules
       - ./client:/app
-    # ports:
-    #   - '5173:5173'
     command: npm run dev
   api: 
     build:
       context: ./server
       dockerfile: Dockerfile.dev
-    # volumes:
-    #  - /app/node_modules
-    #  - ./server/dist:/app/dist
-    #  - ./server/AppConfig.json:/app/App.Config.json
-    # ports:
-    #   - '3000:3000'
+    environment:
+      - GITHUB_ID=2c6ec986c48095990a1c
+      - GITHUB_SECRET=8c5d43ec38179de6264f661317b7c0f56a196050
+      - url=https://localhost:1995
+      - api_key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhcmdvY2QiLCJzdWIiOiJhcmk6YXBpS2V5IiwibmJmIjoxNjc2NDk0OTc0LCJpYXQiOjE2NzY0OTQ5NzQsImp0aSI6Ijg1ODc2MTFmLWM4MGYtNDYxZi1iMTY2LTE2NGNmZjJlY2JiNSJ9.9jv5QnMw9-MsHGipRev2iXdZxSWBcRSbxgFPHipv-hA
+      - mongodb_uri=mongodb+srv://timothy:GqaPQRkAs298yaY1@cluster0.axjjrae.mongodb.net/?retryWrites=true&w=majority
   nginx:
     depends_on:
       - web

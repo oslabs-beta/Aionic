@@ -30,7 +30,7 @@ function TokenInput(props: props) {
       githubId: gitUser,
     };
 
-    fetch('http://localhost:3000/api/userApiKey', {
+    fetch('server/api/userApiKey', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -52,7 +52,7 @@ function TokenInput(props: props) {
 
     const req = { gitToken: gitTokenValue, githubId: gitUser };
 
-    fetch('http://localhost:3000/api/gitToken', {
+    fetch('server/api/gitToken', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
