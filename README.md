@@ -14,30 +14,54 @@ These are what you'll need before we begin:
   * A personal ArgoCD token for each user to gain access to specific apps based on their privileges.
 * ArgoCD URL
   * For example: **https://example.com**
+* Github Client ID and Secret
 
 *For more information on how to setup up MongoDB, click [here](https://www.mongodb.com/docs/manual/tutorial/getting-started/)*
 
-*For more information on how to setup up an OAuth app on your account, click [here](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/creating-an-oauth-app)*
+*For more information on how to setup up an OAuth app on your account, click [here](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/creating-an-oauth-app)* or follow the steps below.
 
 ## How to setup
 
 ### Pre-Requisite  
-- Get Client_ID/Secret and calback url from Github
-  - Go to github and create new OAuth App  
-  <img src=./IMG/github_Oauth_app.png width=800px></img>
-  - callback URL must be forwarded to [www.example.com]**/server/auth/callback**  
-  <img src=./IMG/img3.png width=900px></img>
-  - copy Client_ID and paste it onto Docker-compose-dev.yml as GITHUB_ID  
-  - copy newly generated client secret paste it onto GITHUB_SECRET  
-  - copy callback url from previous step paste it onto GITHUB_CALLBACK_URL
-
-- u
-  - api_key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhcmdvY2QiLCJzdWIiOiJ0aW1vdGh5OmFwaUtleSIsIm5iZiI6MTY3NzY4ODI4NSwiaWF0IjoxNjc3Njg4Mjg1LCJqdGkiOiIzZDA0YmE2OS1kOTc1LTQzNTgtYjNjMS05MzQzZWYxZDQ3ZjgifQ.87DLheXEYF8D3mpDb3QsilNsQ11MARNzY6qeFPYDvdU
-  - mongodb_uri=mongodb+srv://timothy:GqaPQRkAs298yaY1@cluster0.axjjrae.mongodb.net/?retryWrites=true&w=majority
-  - PORT=3000
-<img src=./IMG/git_repo.png width=400px ></img>  
-  
+<br>
 Clone the repo to your local machine
+<br>
+<img src=./IMG/git_repo.png width=400px ></img>  
+<br>
+### SET UP YOUR ENVIRONMENT VARIABLES IN Aionic-dev.yml  
+>> The Aionic-dev.yml can be found in root directory of repo  
+- Get Client_ID/Secret and calback url from Github  
+  - Go to github and create new OAuth App  
+<img src=./IMG/github_Oauth_app.png width=800px></img>  
+  <br>  
+  - callback URL must be forwarded to [www.example.com]**/server/auth/callback**  
+  <br>
+  <img src=./IMG/img3.png width=900px></img>  
+  <br>
+  - copy Client_ID and paste it onto Aionic-dev.yml as GITHUB_ID  
+  - copy newly generated client secret paste it onto GITHUB_SECRET  
+  - copy callback url from previous step paste it onto GITHUB_CALLBACK_URL  
+
+- post your ArgoCD url and api_key to the enviroment variable "url" and api_key under api image in Aionic-dev.yml  
+- get your mongoDB uri and paste it to the enviroment variable "mongodb_uri" under api image in Aionic-dev.yml  
+
+  <img src=./IMG/img4.png width=700px></img>  
+Make sure  that nginx url is same as github callback url.  
+Since the nginx is only point of entry
+### After done with steps above
+  run these lines of command to build and start your docker-container  
+
+      npm run Aionic-build-dev
+  this command will build Aionic container images
+
+      npm run Aionic-up-dev
+  this will start Aionic container
+
+  To Stop the container ctrl + C  
+
+      npm run Aionic-down-dev  
+      
+  this will completely stop the container
 
 <br>
 

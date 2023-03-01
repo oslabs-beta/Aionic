@@ -1,0 +1,7 @@
+{
+  "scripts": {
+    "Aionic-build-dev": "docker-compose -f Aionic-dev.yml build",
+    "Aionic-up-dev": "docker-compose -f Aionic-dev.yml up",
+    "Aionic-down-dev": "docker-compose -f Aionic-dev.yml down"
+  }
+}
