@@ -1,7 +1,6 @@
-import { ChangeEvent, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
-import Home from './components/Home';
 import Login from './components/Login';
+import logo from './assets/logo-sm.png'
 
 //successful auth will return an object with this property
 interface User {
@@ -13,11 +12,16 @@ function App() {
 
   const navigate = useNavigate();
 
-    return (
-      <div>
-        <a href='http://localhost:3000/auth/github'>Login Using GitHub</a>
-      </div>
-    );
+  return (
+    <div className='flex h-screen items-center justify-center'>
+      <a
+        href='server/auth/github'
+        className='text-lg text-black font-semibold underline items-center justify-center'
+      >
+        Login Using GitHub
+      </a>
+    </div>
+  );
 }
 
 export default App;

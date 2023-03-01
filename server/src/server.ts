@@ -1,13 +1,12 @@
 import cookieSession from 'cookie-session'
 import cookieParser from 'cookie-parser'
 import passport from 'passport'
-import express, {Request, Response, NextFunction, RequestHandler} from 'express'
+import express, {Request, Response, NextFunction} from 'express'
 import cors from 'cors'
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 import './passport/passport'
 
-import * as arogController from './controllers/argoController'
 import * as authController from './controllers/authController'
 import {startAutoUpdate} from './controllers/autoUpdate'
 import apiRouter from './routes/apiRouter'
@@ -16,7 +15,7 @@ import * as types from './types'
 startAutoUpdate()
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({ credentials: true, origin: 'http://localhost:5173' }));
+app.use(cors({ credentials: true, origin: '/' }));
 
 app.use(cookieSession({
   name: "session",
@@ -29,7 +28,7 @@ app.use(passport.session());
 app.get('/auth/github/callback', 
   passport.authenticate('github', {failureRedirect: '/'}),
   (req: Request, res: Response)=> {
-    return res.redirect('http://localhost:5173/home')
+    return res.redirect('/home')
   }
 );
 
@@ -70,6 +69,5 @@ app.use((err:types.error | any, req: Request, res: Response, next:NextFunction) 
 
 
 app.listen(PORT, ()=>{
-  console.log(`${PORT} listening ....`)
+  console.log(`listening ${PORT}...`)
 })
-

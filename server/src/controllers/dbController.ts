@@ -120,7 +120,7 @@ export const getManifests = async (req: Request, res: Response, next: NextFuncti
   catch (err){
     console.error(err)
     const error:T.error = {
-      log: 'Error while invoking middleware: getManifests',
+      log: 'Error while invoking middleware: dbController/getManifests',
       status: 400,
       message: `Error getManifests: ${err}`,
     }

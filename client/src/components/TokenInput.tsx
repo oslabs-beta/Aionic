@@ -1,6 +1,9 @@
 import { useContext, useState } from 'react';
 import { GitUserContext } from './Protected';
 
+import gitLogo from '../assets/github-mark.png';
+import argoLogo from '../assets/argo-icon-black.png';
+
 interface tokens {
   argo: boolean;
   git: boolean;
@@ -22,7 +25,6 @@ function TokenInput(props: props) {
 
   const handleArgoSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-  
 
     const req = {
       api_key: argoTokenValue,
@@ -30,7 +32,7 @@ function TokenInput(props: props) {
       githubId: gitUser,
     };
 
-    fetch('http://localhost:3000/api/userApiKey', {
+    fetch('server/api/userApiKey', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -52,7 +54,7 @@ function TokenInput(props: props) {
 
     const req = { gitToken: gitTokenValue, githubId: gitUser };
 
-    fetch('http://localhost:3000/api/gitToken', {
+    fetch('server/api/gitToken', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -61,7 +63,7 @@ function TokenInput(props: props) {
     })
       .then((data: Response) => data.json())
       .then((data) => {
-        console.log('set git data: ', data)
+        console.log('set git data: ', data);
         if (data) {
           props.setGit(true);
         }
@@ -69,36 +71,57 @@ function TokenInput(props: props) {
   };
 
   return (
-    <div>
-      <div>
-        <h1>Argo Input</h1>
+    <div className='my-8 flex flex-col items-center space-y-4'>
+      <div className='border flex flex-col space-y-3 bg-white drop-shadow rounded-md w-9/12 p-10'>
+        <div className='flex flex-row items-center mb-2'>
+          <img className='h-6 mr-2' src={argoLogo} />
+          <h1 className='text-3xl text-gray-900'>Argo Input</h1>
+        </div>
         <form
+          className='flex flex-col space-y-4'
           onSubmit={(e) => {
             handleArgoSubmit(e);
-          }}>
+          }}
+        >
           <input
+            className='block h-8 rounded w-full px-2 py-5 bg-gray-100'
             id='argoTokenInput'
             onChange={(e) => setArgoTokenValue(e.target.value)}
-            placeholder='Insert Argo Token Here'></input>
+            placeholder='Insert Argo Token Here'
+          ></input>
           <input
+            className='block h-8 rounded w-3/4 px-2 py-5 bg-gray-100'
             id='argoUrlInput'
             onChange={(e) => setArgoUrlValue(e.target.value)}
-            placeholder='Insert Argo URL Here'></input>
-          <button>CLICK ME TO SUBMIT ARGO DATA</button>
+            placeholder='Insert Argo URL Here'
+          ></input>
+          <button className='rounded-md bg-orange-500 w-24 hover:bg-orange-600 px-4 py-2 text-white'>
+            Submit
+          </button>
         </form>
       </div>
 
-      <div>
-        <h1>Github Token Input</h1>
+      <div className='border flex flex-col space-y-3 bg-white drop-shadow rounded-md w-9/12 p-10'>
+        <div className='flex flex-row items-center mb-2'>
+          <img className='h-6 mr-2' src={gitLogo} />
+          <h1 className='text-3xl text-gray-900'>Github Input</h1>
+        </div>
+
         <form
+          className='flex flex-col space-y-4'
           onSubmit={(e) => {
             handleGitSubmit(e);
-          }}>
+          }}
+        >
           <input
+            className='block h-8 rounded w-3/4 px-2 py-5 bg-gray-100'
             id='gitUrlInput'
             onChange={(e) => setGitTokenValue(e.target.value)}
-            placeholder='Insert Github Token Here'></input>
-          <button>CLICK ME TO SUBMIT GITHUB TOKEN</button>
+            placeholder='Insert Github Token Here'
+          ></input>
+          <button className='rounded-md bg-orange-500 w-24 hover:bg-orange-600 px-4 py-2 text-white'>
+            Submit
+          </button>
         </form>
       </div>
     </div>

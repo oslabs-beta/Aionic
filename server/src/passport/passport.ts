@@ -16,7 +16,7 @@ passport.deserializeUser((user, done) => {
 passport.use(new GitHubStrategy({
   clientID: keys.GithubId,
   clientSecret: keys.GithubSecret,
-  callbackURL: 'http://localhost:3000/auth/github/callback'
+  callbackURL: 'http://localhost:3000/server/auth/github/callback'
 },
   (accessToken: string, refreshToken: string, profile: types.GithubProfile, done: (error: any, user? : any, info?: any) => void) => {
     const githubId:string = profile.username;
