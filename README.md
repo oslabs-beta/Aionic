@@ -1,5 +1,10 @@
-# Aionic
+<h1 align="center">
+:rocket: Aionic :rocket:
+<h1>
 ## Aionic is a historical registry and rollback tool of your Argo CD managed apps
+<p align="center>
+![alt text](https://www.aionic.app/_next/image?url=%2FAionic-Logo.png&w=1920&q=75)
+<p>
 ### Beta start instructions - App will be Dockerized before launch
 
 **NOTE:** Aionic requires a URI to your own MongoDB database. Aionic does not provide hosting for data, but *WILL* manage the MongoDB database for you.
