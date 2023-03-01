@@ -39,7 +39,7 @@ function AppsHub() {
 
   if (argo && git) {
     return (
-      <div>
+      <div className='flex flex-col items-center justify-center h-screen bg-orange-300'>
        <AppsList/>
       </div>
     );

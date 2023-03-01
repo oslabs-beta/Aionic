@@ -1,7 +1,7 @@
 import { ChangeEvent, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
-import Home from './components/Home';
 import Login from './components/Login';
+import logo from './assets/logo-sm.png'
 
 //successful auth will return an object with this property
 interface User {
