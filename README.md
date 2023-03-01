@@ -1,12 +1,23 @@
 
-# :rocket: Aionic :rocket:
+# [:rocket: Aionic :rocket:](https://www.aionic.app/) &middot; ![Github](https://img.shields.io/github/repo-size/oslabs-beta/Aionic) ![GitHub](https://img.shields.io/github/license/oslabs-beta/Aionic) ![GitHub](https://img.shields.io/badge/PRs-welcome-orange)
 ![Aionic Logo](https://www.aionic.app/_next/image?url=%2FAionic-Logo.png&w=1920&q=75)
-## Aionic is a historical registry and rollback tool of your Argo CD managed apps
-### Beta start instructions - App will be Dockerized before launch
+## Aionic is a historical registry and rollback tool for your Argo CD managed apps
+<br>
 
-**NOTE:** Aionic requires a URI to your own MongoDB database. Aionic does not provide hosting for data, but *WILL* manage the MongoDB database for you.
+## Before setup
+**NOTE:** Aionic requires you to setup your own MongoDB database and OAuth through your Github account, but Aionic ***WILL*** manage your database and OAuth user Github authenication. 
+  
+These are what you'll need before we begin:
+* MongoDB URI
+* ArgoCD Token
+  * An admin ArgoCD token that has access to all apps, so Aionic can update and store all applications and kubernetes manifests in real time
+  * A personal ArgoCD token for each user to gain access to specific apps based on their privileges.
+* ArgoCD URL
+  * For example: **https://example.com**
+<br>
 
-Create a GitHub token that has repo access. This will be used in the setup process and to revert and revert changes to manifests. Also create an ArgoCD access token that has access to all of the apps managed, so Aionic can monitor all of the apps running in your Argo instance. Each user will provide their own account's ArgoCD access token, keeping their individual permissions. Once that is done
+## How to setup
+<!-- Create a GitHub token that has repo access. This will be used in the setup process and to revert and revert changes to manifests. Also create an ArgoCD access token that has access to all of the apps managed, so Aionic can monitor all of the apps running in your Argo instance. Each user will provide their own account's ArgoCD access token, keeping their individual permissions. Once that is done
 
 * Open two terminal windows
   * CD to client in one and run:
@@ -20,5 +31,24 @@ This will launch a website running on localhost:5173. Please log in through GitH
 
 After selecting an app you would like to revert a manifest for, please input the branch you want to force push the specific manifest to. Keep in mind that the branch must exist for the revert to be successful. Once ArgoCD picks up the changes (dependant on how your organization has set it up) those changes will appear in Aionic as well.
 
-Thanks!
+Thanks! -->
+<br>
 
+## Authors
+|                   |           |
+|:-----------------:|:---------:|
+| **Nathan Lui**    | [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/LinkedIn_logo_initials.png/640px-LinkedIn_logo_initials.png" width="40" height="40">](https://www.linkedin.com/in/nmlui/) [<img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" width="40" height="40">](https://github.com/nathanmlui) |
+| **Jian Cheng Lu** | [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/LinkedIn_logo_initials.png/640px-LinkedIn_logo_initials.png" width="40" height="40">](https://www.linkedin.com/in/jlu1932/) [<img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" width="40" height="40">](https://github.com/jiannluu) |
+| **Timothy Kwon**  | [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/LinkedIn_logo_initials.png/640px-LinkedIn_logo_initials.png" width="40" height="40">](https://www.linkedin.com/in/timothy-m-kwon/) [<img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" width="40" height="40">](https://github.com/tk-0311) |
+| **Ari Bengiyat**  | [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/LinkedIn_logo_initials.png/640px-LinkedIn_logo_initials.png" width="40" height="40">](https://www.linkedin.com/in/ari-bengiyat-4b68821a9/)  [<img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" width="40" height="40">](https://github.com/aribengiyat/)| 
+<br>
+
+## How to contribute
+
+<br>
+
+## Show us your support!
+If you liked our app, please show us your support by giving this repo a big :star:
+
+## License
+Aionic is released under the [MIT License](https://github.com/oslabs-beta/Aionic/blob/dev/LICENSE)
