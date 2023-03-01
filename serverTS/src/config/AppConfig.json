@@ -1,7 +1,7 @@
 {
   "global": {
     "url": "https://localhost:8080",
-    "api_key": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhcmdvY2QiLCJzdWIiOiJhcmk6YXBpS2V5IiwibmJmIjoxNjc2NDk0OTc0LCJpYXQiOjE2NzY0OTQ5NzQsImp0aSI6Ijg1ODc2MTFmLWM4MGYtNDYxZi1iMTY2LTE2NGNmZjJlY2JiNSJ9.9jv5QnMw9-MsHGipRev2iXdZxSWBcRSbxgFPHipv-hA"
+    "api_key": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhcmdvY2QiLCJzdWIiOiJuYXRoYW46YXBpS2V5IiwibmJmIjoxNjc3NjA0NDA0LCJpYXQiOjE2Nzc2MDQ0MDQsImp0aSI6IjRmYjk0YjlkLTNmNDctNGVkYy1iNTg4LTM3ZWM0MDczMTkxOSJ9.9w6_vMB9cVHKMe0m3RNr0IjmdQ4aTsZX_JoqmV-Ljw0"
   },
-  "mongodb_uri": "mongodb://127.0.0.1:27017"
+  "mongodb_uri": "mongodb+srv://nathanmlui:horsegirl123@cluster0.jbbgs.azure.mongodb.net/?retryWrites=true&w=majority"
 }
