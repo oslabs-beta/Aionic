@@ -8,6 +8,14 @@ services:
     command: npm run dev
   api: 
     image: aionicos/api-dev
+    environment:
+      - GITHUB_ID=63d79811b03057ea670e
+      - GITHUB_SECRET=511a63d82a2969e0ddf43bf00f85d60629987948
+      - url=https://host.docker.internal:1995
+      - api_key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhcmdvY2QiLCJzdWIiOiJ0aW1vdGh5OmFwaUtleSIsIm5iZiI6MTY3NzY4ODI4NSwiaWF0IjoxNjc3Njg4Mjg1LCJqdGkiOiIzZDA0YmE2OS1kOTc1LTQzNTgtYjNjMS05MzQzZWYxZDQ3ZjgifQ.87DLheXEYF8D3mpDb3QsilNsQ11MARNzY6qeFPYDvdU
+      - mongodb_uri=mongodb+srv://timothy:GqaPQRkAs298yaY1@cluster0.axjjrae.mongodb.net/?retryWrites=true&w=majority
+      - PORT=3000
+    command: npm run dev
     volumes:
      - /app/node_modules
      - ./server/dist:/app/dist
@@ -18,5 +26,5 @@ services:
       - api
     image: aionicos/nginx
     ports:
-      - "3000:80"
-    
+      - "2500:80"
+

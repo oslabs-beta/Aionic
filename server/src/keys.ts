@@ -11,12 +11,14 @@ export const config:config = {global: {
 
 interface env {
   GithubId: string,
-  GithubSecret: string
+  GithubSecret: string,
+  GithubCbUrl: string
 }
 
 const keys:env = {
   GithubId: process.env.GITHUB_ID,
-  GithubSecret: process.env.GITHUB_SECRET
+  GithubSecret: process.env.GITHUB_SECRET,
+  GithubCbUrl: process.env.GITHUB_CALLBACK_URL
 }
 
 export default keys;
