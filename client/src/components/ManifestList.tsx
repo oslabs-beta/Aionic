@@ -31,7 +31,7 @@ function ManifestList() {
         console.log('data for this app is: ', data);
         for (const el of data) {
           stateArr.push(
-            <div className='border flex flex-row place-content-between  bg-white drop-shadow rounded-md w-9/12 p-7'>
+            <div className='border flex flex-row place-content-between  bg-white drop-shadow rounded-md w-9/12 m-2 p-7'>
               <div className='flex flex-col'>
                 <h2 className='text-lg'>Git sha:</h2>
                 <span className='font-mono text-rose-700 bg-slate-100 px-2 rounded'>
