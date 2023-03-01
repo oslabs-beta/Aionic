@@ -39,7 +39,7 @@ function ManifestList() {
                 </span>
               </div>
               <button
-                className='rounded-md bg-orange-500 hover:bg-orange-600 px-3 py-1 text-white'
+                className='rounded-md bg-orange-500 hover:bg-orange-600 px-3 py-1 text-white text-sm'
                 onClick={(e) => handleClick(e)}
               >
                 View manifests
