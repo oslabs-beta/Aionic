@@ -13,7 +13,7 @@ services:
       context: ./server
       dockerfile: Dockerfile.dev
     environment:
-      - GITHUB_ID=
+       - GITHUB_ID=
       - GITHUB_SECRET=
       - url=
       - api_key=
