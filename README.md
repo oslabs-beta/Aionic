@@ -14,7 +14,10 @@ These are what you'll need before we begin:
   * A personal ArgoCD token for each user to gain access to specific apps based on their privileges.
 * ArgoCD URL
   * For example: **https://example.com**
-<br>
+
+*For more information on how to setup up MongoDB, click [here](https://www.mongodb.com/docs/manual/tutorial/getting-started/)*
+
+*For more information on how to setup up an OAuth app on your account, click [here](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/creating-an-oauth-app)*
 
 ## How to setup
 <!-- Create a GitHub token that has repo access. This will be used in the setup process and to revert and revert changes to manifests. Also create an ArgoCD access token that has access to all of the apps managed, so Aionic can monitor all of the apps running in your Argo instance. Each user will provide their own account's ArgoCD access token, keeping their individual permissions. Once that is done
@@ -40,12 +43,12 @@ Thanks! -->
 | **Nathan Lui**    | [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/LinkedIn_logo_initials.png/640px-LinkedIn_logo_initials.png" width="40" height="40">](https://www.linkedin.com/in/nmlui/) [<img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" width="40" height="40">](https://github.com/nathanmlui) |
 | **Jian Cheng Lu** | [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/LinkedIn_logo_initials.png/640px-LinkedIn_logo_initials.png" width="40" height="40">](https://www.linkedin.com/in/jlu1932/) [<img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" width="40" height="40">](https://github.com/jiannluu) |
 | **Timothy Kwon**  | [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/LinkedIn_logo_initials.png/640px-LinkedIn_logo_initials.png" width="40" height="40">](https://www.linkedin.com/in/timothy-m-kwon/) [<img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" width="40" height="40">](https://github.com/tk-0311) |
-| **Ari Bengiyat**  | [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/LinkedIn_logo_initials.png/640px-LinkedIn_logo_initials.png" width="40" height="40">](https://www.linkedin.com/in/ari-bengiyat-4b68821a9/)  [<img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" width="40" height="40">](https://github.com/aribengiyat/)| 
-<br>
+| **Ari Bengiyat**  | [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/LinkedIn_logo_initials.png/640px-LinkedIn_logo_initials.png" width="40" height="40">](https://www.linkedin.com/in/ari-bengiyat-4b68821a9/)  [<img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" width="40" height="40">](https://github.com/aribengiyat/)|
 
 ## How to contribute
+Encountering a bug or wanting features that are missing with our app? Please let us know by opening an issue in our Github repository on how we can improve!
 
-<br>
+If you want to contribute directly, please submit a pull request following the guidelines listed [here](https://docs.github.com/en/get-started/quickstart/contributing-to-projects?tool=webui).
 
 ## Show us your support!
 If you liked our app, please show us your support by giving this repo a big :star:
