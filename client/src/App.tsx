@@ -12,13 +12,16 @@ function App() {
 
   const navigate = useNavigate();
 
-    return (
-      <div className='flex flex-col items-center justify-center h-screen bg-gradient-to-r from-red-400 via-blue-200 to-orange-400 gap-4'>
-        <h1 className='text-2xl text-black font-semibold underline'>Aionic</h1>
-        <img src={logo} alt="Aionic logo" className='w-36'/>
-        <a href='server/auth/github' className='text-lg text-black font-semibold underline'>Login Using GitHub</a>
-      </div>
-    );
+  return (
+    <div className='flex h-screen items-center justify-center'>
+      <a
+        href='server/auth/github'
+        className='text-lg text-black font-semibold underline items-center justify-center'
+      >
+        Login Using GitHub
+      </a>
+    </div>
+  );
 }
 
 export default App;
