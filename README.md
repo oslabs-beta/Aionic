@@ -54,7 +54,7 @@ Clone the repo to your local machine
   <img src=./IMG/img4.png width=700px></img>  
 Make sure that nginx url is same as github callback url. 
 Since the nginx is only point of entry  
-### After done with steps above
+### After you are done with steps above
   run these lines of command to build and start your docker-container  
 
       npm run Aionic-build-dev
