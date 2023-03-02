@@ -36,7 +36,7 @@ Clone the repo to your local machine
   - Go to github and create new OAuth App  
 <img src=./IMG/github_Oauth_app.png width=800px></img>  
   <br>  
-  - callback URL must be forwarded to [www.example.com]**/server/auth/callback**  
+  - callback URL must be forwarded to https://example.com<strong>/server/auth/callback</strong>    
   <br>  
   <img src=./IMG/img3.png width=900px></img>  
   <br>  
