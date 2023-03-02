@@ -4,6 +4,7 @@
 ## Aionic is a historical registry and rollback tool for your Argo CD managed apps
 <br>
 
+
 ## Before setup
 **NOTE:** Aionic requires you to setup your own MongoDB database and OAuth through your Github account, but Aionic ***WILL*** manage your database and OAuth user Github authenication. 
   
@@ -68,7 +69,17 @@ Since the nginx is only point of entry
       
   this will completely stop the container
 
-<br>
+<br>  
+
+## DEMO 
+
+### Aionic Authentication
+<img src=./IMG/demo1.gif></img>  
+<br>  
+
+### Aionic Work flow
+<img src=./IMG/demo2.gif></img>  
+<br>  
 
 ## Authors
 |                   |           |
