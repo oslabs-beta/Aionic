@@ -13,12 +13,12 @@ services:
       context: ./server
       dockerfile: Dockerfile.dev
     environment:
-      - GITHUB_ID=[GITHUB CLINET ID Goes here]
-      - GITHUB_SECRET=[GITHUB CLIENT Secret Goes here]
-      - GITHUB_CALLBACK_URL=[GITHUB CALLBAKC URL]/server/auth/github/callback
-      - url=[ARGO CD URL]
-      - api_key=[ARGOCD APIKEY]
-      - mongodb_uri=[MONGODB URI]
+      - GITHUB_ID=[Client_ID]
+      - GITHUB_SECRET=[Client_Secrets]
+      - GITHUB_CALLBACK_URL=http://localhost:3000/server/auth/github/callback
+      - url=https://host.docker.internal:1995
+      - api_key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhcmdvY2QiLCJzdWIiOiJ0aW1vdGh5OmFwaUtleSIsIm5iZiI6MTY3NzYwMTE1OCwiaWF0IjoxNjc3NjAxMTU4LCJqdGkiOiI2NTRlZTZmOS05ODcwLTQzYzctYjE2Zi1mYmRiZDA5ODgyNmIifQ.hWWJw9x2FmXrNrbvHedWQIC2FlCoaKlMaUZW60bl_N4
+      - mongodb_uri=mongodb+srv://timothy:GqaPQRkAs298yaY1@cluster0.axjjrae.mongodb.net/?retryWrites=true&w=majority
   nginx:
     depends_on:
       - web
@@ -27,4 +27,4 @@ services:
       context: ./nginx
       dockerfile: Dockerfile.dev
     ports:
-      - "2500:80"
+      - "3000:80"
