@@ -110,10 +110,42 @@ function ManifestDetails(props) {
   };
   return (
     <div>
-      <button onClick={(e) => handleClick(e)}>Back</button>
-      {mani}​<h3>Please input the exact branch name to push to!</h3>
-      <input type='text' onChange={(e) => setBranch(e.target.value)}></input>
-      <button onClick={(e) => handleGit(e)}>Push to git</button>
+      <button
+        className='rounded-md bg-slate-100 hover:bg-slate-200 px-4 py-2'
+        onClick={(e) => handleClick(e)}
+      >
+        ⬅️ Back
+      </button>
+      <div className='flex flex-col justify-center items-center'>
+        {/* container for input and git sha */}
+        <div className='flex flex-col -center mb-6 w-2/5'>
+          <div className='flex flex-col items-center'>
+            <h2 className='text-xl'>Manifests for git sha:</h2>
+            <span className='flex justify-center font-mono text-rose-700 mb-3 px-2 rounded'>
+              {props.sha}
+            </span>
+          </div>
+
+          <div className='flex justify-center mb-3'>
+            <input
+              placeholder='Input git branch name'
+              className='h-10 rounded-tl-md rounded-bl-md w-3/4 px-2 bg-gray-100'
+              type='text'
+              onChange={(e) => setBranch(e.target.value)}
+            ></input>
+            <button
+              className='rounded-tr-md rounded-br-md bg-orange-500 hover:bg-orange-600 px-4 text-white'
+              onClick={(e) => handleGit(e)}
+            >
+              Push to git
+            </button>
+          </div>
+        </div>
+
+        <div className='flex justify-center gap-5'>
+          <div className='flex flex-col max-w-2xl gap-5'>{mani}</div>
+        </div>
+      </div>
     </div>
   );
 }
