@@ -4,6 +4,7 @@
 ## Aionic is a historical registry and rollback tool for your Argo CD managed apps
 <br>
 
+
 ## Before setup
 **NOTE:** Aionic requires you to setup your own MongoDB database and OAuth through your Github account, but Aionic ***WILL*** manage your database and OAuth user Github authenication. 
   
@@ -33,10 +34,12 @@ Clone the repo to your local machine
   
 >> The Aionic-dev.yml can be found in root directory of repo  
 - Get Client_ID/Secret and calback url from Github  
-  - Go to github and create new OAuth App  
+  - Go to github setting
+  - Click on github Developer setting on the bottom of the list.
+  - create new OAuth App  
 <img src=./IMG/github_Oauth_app.png width=800px></img>  
   <br>  
-  - callback URL must be forwarded to https://example.com<strong>/server/auth/callback</strong>    
+  - callback URL must be forwarded to [http://localhost:3000]<strong>/server/auth/callback</strong>  
   <br>  
   <img src=./IMG/img3.png width=900px></img>  
   <br>  
@@ -44,13 +47,13 @@ Clone the repo to your local machine
   - copy Client_ID and paste it onto Aionic-dev.yml as GITHUB_ID  
   - copy newly generated client secret paste it onto GITHUB_SECRET  
   - copy callback url from previous step paste it onto GITHUB_CALLBACK_URL  
-
 - post your ArgoCD url and api_key to the enviroment variable "url" and api_key under api image in Aionic-dev.yml  
+    ***to access of localhost of host make sure to use host.docker.interal instead of localhost***
 - get your mongoDB uri and paste it to the enviroment variable "mongodb_uri" under api image in Aionic-dev.yml  
 
   <img src=./IMG/img4.png width=700px></img>  
-Make sure  that nginx url is same as github callback url.  
-Since the nginx is only point of entry
+Make sure that nginx url is same as github callback url. 
+Since the nginx is only point of entry  
 ### After you are done with steps above
   run these lines of command to build and start your docker-container  
 
@@ -66,7 +69,17 @@ Since the nginx is only point of entry
       
   this will completely stop the container
 
-<br>
+<br>  
+
+## DEMO 
+
+### Aionic Authentication
+<img src=./IMG/demo1.gif></img>  
+<br>  
+
+### Aionic Work flow
+<img src=./IMG/demo2.gif></img>  
+<br>  
 
 ## Authors
 |                   |           |
