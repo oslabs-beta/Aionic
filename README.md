@@ -82,12 +82,10 @@ Since the nginx is only point of entry
 <br>  
 
 ## Authors
-|                   |           |
-|:-----------------:|:---------:|
-| **Nathan Lui**    | [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/LinkedIn_logo_initials.png/640px-LinkedIn_logo_initials.png" width="40" height="40">](https://www.linkedin.com/in/nmlui/) [<img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" width="40" height="40">](https://github.com/nathanmlui) |
-| **Jian Cheng Lu** | [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/LinkedIn_logo_initials.png/640px-LinkedIn_logo_initials.png" width="40" height="40">](https://www.linkedin.com/in/jlu1932/) [<img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" width="40" height="40">](https://github.com/jiannluu) |
-| **Timothy Kwon**  | [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/LinkedIn_logo_initials.png/640px-LinkedIn_logo_initials.png" width="40" height="40">](https://www.linkedin.com/in/timothy-m-kwon/) [<img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" width="40" height="40">](https://github.com/tk-0311) |
-| **Ari Bengiyat**  | [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/LinkedIn_logo_initials.png/640px-LinkedIn_logo_initials.png" width="40" height="40">](https://www.linkedin.com/in/ari-bengiyat-4b68821a9/)  [<img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" width="40" height="40">](https://github.com/aribengiyat/)|
+
+| **Nathan Lui** | **Jian Cheng Lu** | **Timothy Kwon**  | **Ari Bengiyat**  |  
+| :---: | :---: | :---: | :---: |  
+| [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/LinkedIn_logo_initials.png/640px-LinkedIn_logo_initials.png" width="40" height="40">](https://www.linkedin.com/in/nmlui/) [<img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" width="40" height="40">](https://github.com/nathanmlui) | [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/LinkedIn_logo_initials.png/640px-LinkedIn_logo_initials.png" width="40" height="40">](https://www.linkedin.com/in/jlu1932/) [<img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" width="40" height="40">](https://github.com/jiannluu) | [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/LinkedIn_logo_initials.png/640px-LinkedIn_logo_initials.png" width="40" height="40">](https://www.linkedin.com/in/timothy-m-kwon/) [<img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" width="40" height="40">](https://github.com/tk-0311) | [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/LinkedIn_logo_initials.png/640px-LinkedIn_logo_initials.png" width="40" height="40">](https://www.linkedin.com/in/ari-bengiyat-4b68821a9/)  [<img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" width="40" height="40">](https://github.com/aribengiyat/)|
 
 ## How to contribute
 Encountering a bug or wanting features that are missing with our app? Please let us know by opening an issue in our Github repository on how we can improve!

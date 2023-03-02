@@ -42,7 +42,7 @@ function ManifestDetails(props) {
           );
           stateArr.push(
             <div className='bg-gray-200 max-w-5xl'>
-              <pre className='hljs'>
+              <pre className='hljs p-5'>
                 <code dangerouslySetInnerHTML={{ __html: high }}></code>
               </pre>
             </div>
@@ -129,12 +129,12 @@ function ManifestDetails(props) {
           <div className='flex justify-center mb-3'>
             <input
               placeholder='Input git branch name'
-              className='h-10 rounded-tl-md rounded-bl-md w-3/4 px-2 bg-gray-100'
+              className='flex-none h-10 rounded-tl-md rounded-bl-md w-[490px] px-2 bg-gray-100'
               type='text'
               onChange={(e) => setBranch(e.target.value)}
-            ></input>
+            />
             <button
-              className='rounded-tr-md rounded-br-md bg-orange-500 hover:bg-orange-600 px-4 text-white'
+              className='flex-none rounded-tr-md rounded-br-md bg-orange-500 hover:bg-orange-600 px-4 text-white w-[7rem]'
               onClick={(e) => handleGit(e)}
             >
               Push to git
