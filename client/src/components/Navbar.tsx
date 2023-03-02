@@ -3,7 +3,7 @@ import logoWhite from '../assets/logo-white.png';
 function Navbar({ setIsLoggedIn, setUsername }) {
   const handleClick = (e) => {
     e.preventDefault();
-    fetch('http://localhost:3000/logout', {
+    fetch('/server/logout', {
       credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
