@@ -1,6 +1,8 @@
+import { useNavigate } from 'react-router';
 import logoWhite from '../assets/logo-white.png';
 
 function Navbar({ setIsLoggedIn, setUsername }) {
+  const navigate = useNavigate()
   const handleClick = (e) => {
     e.preventDefault();
     fetch('/server/logout', {
@@ -14,6 +16,7 @@ function Navbar({ setIsLoggedIn, setUsername }) {
         setIsLoggedIn(false);
         setUsername('');
       });
+      navigate('/');
   };
 
   return (
