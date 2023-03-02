@@ -40,6 +40,7 @@ Clone the repo to your local machine
   <br>  
   <img src=./IMG/img3.png width=900px></img>  
   <br>  
+  
   - copy Client_ID and paste it onto Aionic-dev.yml as GITHUB_ID  
   - copy newly generated client secret paste it onto GITHUB_SECRET  
   - copy callback url from previous step paste it onto GITHUB_CALLBACK_URL  
@@ -50,7 +51,7 @@ Clone the repo to your local machine
   <img src=./IMG/img4.png width=700px></img>  
 Make sure  that nginx url is same as github callback url.  
 Since the nginx is only point of entry
-### After done with steps above
+### After you are done with steps above
   run these lines of command to build and start your docker-container  
 
       npm run Aionic-build-dev
