@@ -8,6 +8,15 @@ services:
     command: npm run dev
   api: 
     image: aionicos/api-dev
+    environment:
+      - GITHUB_ID=
+      - GITHUB_SECRET=
+      - GITHUB_CALLBACK_URL=
+      - url=h
+      - api_key=
+      - mongodb_uri=
+
+    command: npm run dev
     volumes:
      - /app/node_modules
      - ./server/dist:/app/dist
@@ -18,5 +27,5 @@ services:
       - api
     image: aionicos/nginx
     ports:
-      - "3000:80"
-    
+      - "2500:80"
+

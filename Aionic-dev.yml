@@ -13,13 +13,12 @@ services:
       context: ./server
       dockerfile: Dockerfile.dev
     environment:
-       - GITHUB_ID=
-      - GITHUB_SECRET=
-      - url=
-      - api_key=
-      - mongodb_uri=
-      - PORT=
-    command: npm run dev
+      - GITHUB_ID=[GITHUB CLINET ID Goes here]
+      - GITHUB_SECRET=[GITHUB CLIENT Secret Goes here]
+      - GITHUB_CALLBACK_URL=[GITHUB CALLBAKC URL]/server/auth/github/callback
+      - url=[ARGO CD URL]
+      - api_key=[ARGOCD APIKEY]
+      - mongodb_uri=[MONGODB URI]
   nginx:
     depends_on:
       - web
@@ -28,4 +27,4 @@ services:
       context: ./nginx
       dockerfile: Dockerfile.dev
     ports:
-      - "3000:80"
+      - "2500:80"
