@@ -1,0 +1,30 @@
+version: '3.9'
+services:
+  web:
+    build:
+      context: ./client
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/node_modules
+      - ./client:/app
+    command: npm run dev
+  api:
+    build:
+      context: ./server
+      dockerfile: Dockerfile.dev
+    environment:
+      - GITHUB_ID=[GITHUB CLIENT ID Goes here]
+      - GITHUB_SECRET=[GITHUB CLIENT Secret Goes here]
+      - GITHUB_CALLBACK_URL=[GITHUB CALLBACK URL]/server/auth/github/callback
+      - url=[ARGO CD URL]
+      - api_key=[ARGOCD APIKEY]
+      - mongodb_uri=[MONGODB URI]
+  nginx:
+    depends_on:
+      - web
+      - api
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile.dev
+    ports:
+      - '2500:80'
