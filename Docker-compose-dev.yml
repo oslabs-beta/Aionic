@@ -8,17 +8,16 @@ services:
       - /app/node_modules
       - ./client:/app
     command: npm run dev
-  api: 
+  api:
     build:
       context: ./server
       dockerfile: Dockerfile.dev
     environment:
-       - GITHUB_ID=
-      - GITHUB_SECRET=
-      - url=
-      - api_key=
-      - mongodb_uri=
-      - PORT=
+      - GITHUB_ID=4989bb59352a0a0db020
+      - GITHUB_SECRET=976c57aa3b30f4e146a88b48fef41839226c3209
+      - url=https://host.docker.internal:8080
+      - api_key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhcmdvY2QiLCJzdWIiOiJuYXRoYW46YXBpS2V5IiwibmJmIjoxNjc3NjA0NDA0LCJpYXQiOjE2Nzc2MDQ0MDQsImp0aSI6IjRmYjk0YjlkLTNmNDctNGVkYy1iNTg4LTM3ZWM0MDczMTkxOSJ9.9w6_vMB9cVHKMe0m3RNr0IjmdQ4aTsZX_JoqmV-Ljw0
+      - mongodb_uri=mongodb+srv://nathanmlui:horsegirl123@cluster0.jbbgs.azure.mongodb.net/?retryWrites=true&w=majority
     command: npm run dev
   nginx:
     depends_on:
@@ -28,4 +27,4 @@ services:
       context: ./nginx
       dockerfile: Dockerfile.dev
     ports:
-      - "3000:80"
+      - '3000:80'
