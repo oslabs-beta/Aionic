@@ -45,6 +45,7 @@ function TokenInput(props: props) {
           props.setArgo(true); //need to check what data we will get back
           props.setUrl(true);
         }
+        // window.location.reload();
       });
   };
 
@@ -67,6 +68,7 @@ function TokenInput(props: props) {
         if (data) {
           props.setGit(true);
         }
+        // window.location.reload();
       });
   };
 
@@ -75,12 +77,15 @@ function TokenInput(props: props) {
       <div className='border flex flex-col space-y-3 bg-white drop-shadow rounded-md w-9/12 p-10'>
         <div className='flex flex-row items-center mb-2'>
           <img className='h-6 mr-2' src={argoLogo} />
-          <h1 className='text-3xl text-gray-900'>Argo Input</h1>
+          <h1 className='text-3xl text-gray-900'>Argo</h1>
         </div>
+
         <form
           className='flex flex-col space-y-4'
           onSubmit={(e) => {
             handleArgoSubmit(e);
+            handleGitSubmit(e);
+            window.location.reload();
           }}
         >
           <input
@@ -89,30 +94,18 @@ function TokenInput(props: props) {
             onChange={(e) => setArgoTokenValue(e.target.value)}
             placeholder='Insert Argo Token Here'
           ></input>
+
           <input
             className='block h-8 rounded w-3/4 px-2 py-5 bg-gray-100'
             id='argoUrlInput'
             onChange={(e) => setArgoUrlValue(e.target.value)}
             placeholder='Insert Argo URL Here'
           ></input>
-          <button className='rounded-md bg-orange-500 w-24 hover:bg-orange-600 px-4 py-2 text-white'>
-            Submit
-          </button>
-        </form>
-      </div>
 
-      <div className='border flex flex-col space-y-3 bg-white drop-shadow rounded-md w-9/12 p-10'>
-        <div className='flex flex-row items-center mb-2'>
-          <img className='h-6 mr-2' src={gitLogo} />
-          <h1 className='text-3xl text-gray-900'>Github Input</h1>
-        </div>
-
-        <form
-          className='flex flex-col space-y-4'
-          onSubmit={(e) => {
-            handleGitSubmit(e);
-          }}
-        >
+          <div className='flex flex-row items-center mb-2 mt-5'>
+            <img className='h-6 mr-2' src={gitLogo} />
+            <h1 className='text-3xl text-gray-900'>Github</h1>
+          </div>
           <input
             className='block h-8 rounded w-3/4 px-2 py-5 bg-gray-100'
             id='gitUrlInput'
@@ -124,6 +117,14 @@ function TokenInput(props: props) {
           </button>
         </form>
       </div>
+
+      {/* <div className='border flex flex-col space-y-3 bg-white drop-shadow rounded-md w-9/12 p-10'>
+        <form className='flex flex-col space-y-4' onSubmit={(e) => {}}>
+          <button className='rounded-md bg-orange-500 w-24 hover:bg-orange-600 px-4 py-2 text-white'>
+            Submit
+          </button>
+        </form>
+      </div> */}
     </div>
   );
 }
