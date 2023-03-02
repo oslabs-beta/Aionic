@@ -39,8 +39,8 @@ Clone the repo to your local machine
   - create new OAuth App  
 <img src=./IMG/github_Oauth_app.png width=800px></img>  
   <br>  
-  - callback URL must be forwarded to [http://localhost:3000]**/server/auth/callback**  
-  <br>
+  - callback URL must be forwarded to [http://localhost:3000]<strong>/server/auth/callback</strong>  
+  <br>  
   <img src=./IMG/img3.png width=900px></img>  
   <br>  
   
