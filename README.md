@@ -47,9 +47,9 @@ Clone the repo to your local machine
   - copy Client_ID and paste it onto Aionic-dev.yml as GITHUB_ID  
   - copy newly generated client secret paste it onto GITHUB_SECRET  
   - copy callback url from previous step paste it onto GITHUB_CALLBACK_URL  
-- post your ArgoCD url and api_key to the enviroment variable "url" and api_key under api image in Aionic-dev.yml  
+- post your ArgoCD url and api_key to the environment variable "url" and api_key under api image in Aionic-dev.yml  
     ***to access of localhost of host make sure to use host.docker.interal instead of localhost***
-- get your mongoDB uri and paste it to the enviroment variable "mongodb_uri" under api image in Aionic-dev.yml  
+- get your mongoDB uri and paste it to the environment variable "mongodb_uri" under api image in Aionic-dev.yml  
 
   <img src=./IMG/img4.png width=700px></img>  
 Make sure that nginx url is same as github callback url. 
