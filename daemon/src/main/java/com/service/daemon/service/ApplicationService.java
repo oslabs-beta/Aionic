@@ -1,11 +1,15 @@
 package com.service.daemon.service;
 
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
+import java.net.URISyntaxException;
+import java.security.KeyManagementException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -14,7 +18,16 @@ import java.util.Properties;
 import java.util.Timer;
 import java.util.TimerTask;
 
-
+import org.apache.http.HttpException;
+import org.apache.http.HttpHeaders;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.conn.ssl.NoopHostnameVerifier;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.ssl.SSLContextBuilder;
+import org.apache.http.ssl.TrustStrategy;
+import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,6 +78,30 @@ public class ApplicationService {
 	@Autowired
 	public NodeRepository nodeRepo;
 	
+	
+	public static CloseableHttpClient getCloseableHttpClient()
+	{
+		CloseableHttpClient httpClient = null;
+		try {
+			httpClient = HttpClients.custom().setSSLHostnameVerifier(NoopHostnameVerifier.INSTANCE)
+			        .setSslcontext(new SSLContextBuilder().loadTrustMaterial(null, new TrustStrategy()
+			        {
+			            public boolean isTrusted(X509Certificate[] arg0, String arg1) throws CertificateException
+			            {
+			                return true;
+			            }
+			        }).build()).build();
+
+		} catch (KeyManagementException e) {
+			LOGGER.error("KeyManagementException in creating http client instance", e);
+		} catch (NoSuchAlgorithmException e) {
+			LOGGER.error("NoSuchAlgorithmException in creating http client instance", e);
+		} catch (KeyStoreException e) {
+			LOGGER.error("KeyStoreException in creating http client instance", e);
+		}
+		return httpClient;
+	}
+	
 	public ApplicationService() {
 	}
 	
@@ -109,7 +146,7 @@ public class ApplicationService {
 
 	}
 	
-	public List<?> Stop()   {
+	public List<Object> Stop()   {
 		if (processTimer != null && task != null ){
 			List<Object> resStrings = new ArrayList<Object>();
 			resStrings.add(task.cancel());
@@ -124,56 +161,43 @@ public class ApplicationService {
 		}
 	}
 	
-	private static String fetchApplicationData(String url, String api_key) {
-		
-        HttpClient httpClient = HttpClient.newHttpClient();
+    private static String fetchApplicationData(String url, String api_key) throws HttpException {
+        try (CloseableHttpClient httpClient = getCloseableHttpClient()) {
+            URI uri = new URI(url + "/api/v1/applications");
 
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(url + "/api/v1/applications"))
-                .header("Authorization", "Bearer " + api_key)
-                .GET()
-                .build();
-        System.out.println(request);
-        try {
-			HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-			if (response.statusCode() == 200) {
-				return response.body();
-			}else {
-				
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+            HttpGet request = new HttpGet(uri);
+            request.setHeader(HttpHeaders.AUTHORIZATION, "Bearer " + api_key);
 
-		return "failed";
+            try (CloseableHttpResponse response = httpClient.execute(request)) {
+                if (response.getStatusLine().getStatusCode() == 200) {
+                    return EntityUtils.toString(response.getEntity());
+                } else {
+                    throw new HttpException("status code: " + response.getStatusLine().getStatusCode() );
+                }
+            }
+        } catch (URISyntaxException | IOException e) {
+            e.printStackTrace();
+        }
+        return "failed";
     }
 	
-	private static String fetchManifestData(String url, String api_key, String name) {
-		
-        HttpClient httpClient = HttpClient.newHttpClient();
+    private static String fetchManifestData(String url, String api_key, String name) {
+        try (CloseableHttpClient httpClient = getCloseableHttpClient()) {
+            URI uri = new URI(url + "/api/v1/applications/" + name + "/manifests");
 
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(url + "/api/v1/applications/" + name + "/manifests"))
-                .header("Authorization", "Bearer " + api_key)
-                .GET()
-                .build();
+            HttpGet request = new HttpGet(uri);
+            request.setHeader(HttpHeaders.AUTHORIZATION, "Bearer " + api_key);
 
-        try {
-			return httpClient.send(request, HttpResponse.BodyHandlers.ofString()).body();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+            try (CloseableHttpResponse response = httpClient.execute(request)) {
+                if (response.getStatusLine().getStatusCode() == 200) {
+                    return EntityUtils.toString(response.getEntity());
+                }
+            }
+        } catch (URISyntaxException | IOException e) {
+            e.printStackTrace();
+        }
         return "failed";
-                
-	}
+    }
 	
 	public static List<AppDTO> transformApplication(String future) {
 	    List<AppDTO> applications = new ArrayList<>();

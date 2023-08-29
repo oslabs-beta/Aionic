@@ -1,5 +1,7 @@
 package com.service.daemon.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +35,13 @@ public class UpdateController {
 	public ResponseEntity<?> startTimer() {
 		return new ResponseEntity<String>(appService.Start(), HttpStatus.OK);
 	}
+	
+	@GetMapping("/stop")
+	public ResponseEntity<?> StopTimer() {
+		List<Object> task = appService.Stop();
+		return new ResponseEntity<String>("Task is cancelled:"+ task.get(0) + "\n" + " " + task.get(1) +  " Task(s) removed.", HttpStatus.OK);
+	}
+	
 	@GetMapping("/webhook")
 	public void sync() {
 		System.out.println("System check");

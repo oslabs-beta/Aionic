@@ -101,8 +101,8 @@ public class ApplicationServiceTest {
         applicationService.addNode(app, node);
 
       
-        verify(nodeRepo).save(eq(node)); // Check if node is saved
-        verify(appRepo).save(eq(app)); // Check if app is updated
+        verify(nodeRepo).save(eq(node)); 
+        verify(appRepo).save(eq(app)); 
     }
     
     @Mock
