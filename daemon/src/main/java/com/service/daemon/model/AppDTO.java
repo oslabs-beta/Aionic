@@ -26,16 +26,16 @@ public class AppDTO {
 		
 		private String tail;
 
-
 		public AppDTO(String uid2, String name2, Source source2, Date date2) {
-			// TODO Auto-generated constructor stub
+
 			uid = uid2;
 			name = name2;
 			source = source2;
 			date = date2;
 		}
 		public AppDTO() {}
-		public String getid() {
+		
+		public String getId() {
 			return id;
 		}
 		public String getUid() {

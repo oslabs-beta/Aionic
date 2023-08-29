@@ -19,35 +19,35 @@ public class NodeDTO {
 	
 	private String sourceType;
 	
-	private String prev;
+	private String prev = null;
 	
-	private String next;
+	private String next = null;
 	
 	
+	public String getId() {
+
+		return id;
+	}
+
 	public String getManifest() {
 		return manifest;
 	}
-
 
 	public void setManifest(String manifest) {
 		this.manifest = manifest;
 	}
 
-
 	public String getRevision() {
 		return revision;
 	}
-
 
 	public void setRevision(String revision) {
 		this.revision = revision;
 	}
 
-
 	public String getSourceType() {
 		return sourceType;
 	}
-
 
 	public void setSourceType(String sourceType) {
 		this.sourceType = sourceType;
@@ -57,7 +57,6 @@ public class NodeDTO {
 		return prev;
 	}
 
-
 	public void setPrev(String prev) {
 		this.prev = prev;
 	}
@@ -66,14 +65,15 @@ public class NodeDTO {
 		return next;
 	}
 
-
 	public void setNext(String next) {
 		this.next = next;
 	}
 
-
-	public NodeDTO() {
-		// TODO Auto-generated constructor stub
+	public NodeDTO(String manifestString, String revisionString, String sourceString) {
+		manifest = manifestString;
+		revision = revisionString;
+		sourceType = sourceString;
 	}
+	public NodeDTO() {}
 
 }

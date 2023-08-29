@@ -1,0 +1,8 @@
+{
+    "manifests": [
+        "{\"mockdata\":\"sucess\"}",
+        "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"labels\":{\"app.kubernetes.io/instance\":\"guestbook\"},\"name\":\"guestbook-ui\"},\"spec\":{\"ports\":[{\"port\":80,\"targetPort\":80}],\"selector\":{\"app\":\"guestbook-ui\"}}}"
+    ],
+    "revision": "001",
+    "sourceType": "Directory"
+}

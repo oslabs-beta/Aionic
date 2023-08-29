@@ -11,4 +11,6 @@ public interface AppRepository extends MongoRepository<AppDTO, String> {
 
 	@Query(value ="{'uid': ?0}")
 	AppDTO findByUid(String uid);
+	
+	
 }

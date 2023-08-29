@@ -20,12 +20,21 @@ public class UpdateController {
 	@PostMapping("/update")
 	public ResponseEntity<?> run() {
 
-		appService.start();
-		return new ResponseEntity<>("process started", HttpStatus.OK);
+		return new ResponseEntity<>(appService.DataProcess(), HttpStatus.OK);
 	}
+	
 	@GetMapping("/update")
 	public ResponseEntity<?> check() {
 		
 		return new ResponseEntity<String>(appService.checkstatusString(), HttpStatus.OK);
+	}
+	
+	@PostMapping("/start")
+	public ResponseEntity<?> startTimer() {
+		return new ResponseEntity<String>(appService.Start(), HttpStatus.OK);
+	}
+	@GetMapping("/webhook")
+	public void sync() {
+		System.out.println("System check");
 	}
 }
